@@ -525,13 +525,6 @@ body {
   margin-bottom: 1rem;
 }
 
-.design-price {
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 600;
-  color: var(--accent-dark);
-}
-
 .empty-state {
   grid-column: 1 / -1;
   text-align: center;
@@ -931,14 +924,6 @@ body {
   color: var(--slate);
   line-height: 1.75;
   margin-bottom: 1.5rem;
-}
-
-.modal-price {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--accent-dark);
-  margin-bottom: 2rem;
 }
 
 .modal-actions {
@@ -1710,7 +1695,6 @@ function renderCollection() {
           <div class="design-cat">${design.category}</div>
           <div class="design-name">${design.name}</div>
           <div class="design-desc">${design.description}</div>
-          <div class="design-price">₹${design.price}</div>
         </div>
       </div>
     `).join('');
@@ -1750,7 +1734,6 @@ function openDesignModal(id) {
       <div class="modal-cat">${design.category}</div>
       <div class="modal-name">${design.name}</div>
       <div class="modal-desc">${design.description}</div>
-      <div class="modal-price">₹${design.price}</div>
       <div class="modal-actions">
         <a href="https://wa.me/918008088088?text=Hi! I'm interested in ${encodeURIComponent(design.name)}" target="_blank" style="flex: 1; text-decoration: none;">
           <button class="modal-btn modal-btn-primary" style="width: 100%;">Order on WhatsApp</button>
@@ -1826,10 +1809,6 @@ function renderAddForm() {
         <textarea class="form-textarea" id="designDesc" required>${design?.description || ''}</textarea>
       </div>
       <div class="form-group">
-        <label class="form-label">Price (₹) *</label>
-        <input type="number" class="form-input" id="designPrice" required min="0" value="${design?.price || ''}">
-      </div>
-      <div class="form-group">
         <label class="form-label">Image</label>
         <div class="img-upload-area ${design?.image ? 'has-image' : ''}" id="uploadArea" onclick="document.getElementById('imageInput').click()">
           ${design?.image ? 
@@ -1877,7 +1856,6 @@ function saveDesign(event) {
   const name = document.getElementById('designName').value.trim();
   const category = document.getElementById('designCategory').value.trim();
   const description = document.getElementById('designDesc').value.trim();
-  const price = parseFloat(document.getElementById('designPrice').value);
   const imageInput = document.getElementById('imageInput');
   
   const designData = {
@@ -1885,7 +1863,6 @@ function saveDesign(event) {
     name,
     category,
     description,
-    price,
     image: null
   };
   
@@ -1949,7 +1926,7 @@ function renderManageList() {
         <div class="manage-item">
           <div class="manage-item-info">
             <div class="manage-item-name">${design.name}</div>
-            <div class="manage-item-cat">${design.category} • ₹${design.price}</div>
+            <div class="manage-item-cat">${design.category}</div>
           </div>
           <div class="manage-item-actions">
             <button class="icon-btn" onclick="editDesign('${design.id}')" title="Edit">✏️</button>
