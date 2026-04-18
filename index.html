@@ -1009,6 +1009,53 @@ body {
   color: var(--charcoal);
 }
 
+.admin-hd-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.admin-auth {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+.admin-auth-card {
+  background: rgba(253, 251, 247, 0.88);
+  border: 1px solid rgba(130, 117, 104, 0.14);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.admin-auth-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--charcoal);
+  margin-bottom: 0.35rem;
+}
+
+.admin-auth-sub {
+  color: var(--slate);
+  margin-bottom: 1.5rem;
+}
+
+.admin-auth-error {
+  display: none;
+  margin-bottom: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  background: rgba(199, 114, 114, 0.12);
+  color: var(--error);
+  font-size: 0.95rem;
+}
+
+.admin-auth-error.show {
+  display: block;
+}
+
 .modal-x {
   width: 40px;
   height: 40px;
@@ -1605,9 +1652,9 @@ body {
       <button class="modal-x" onclick="closeAdmin()">✕</button>
     </div>
     <div class="admin-inner" id="adminInner">
-      <div class="admin-tabs">
-        <button class="admin-tab active" onclick="switchTab('add')">Add Design</button>
-        <button class="admin-tab" onclick="switchTab('manage')">Manage Designs</button>
+      <div class="admin-tabs" style="display: none;">
+        <button class="admin-tab active" onclick="switchTab('add', event)">Add Design</button>
+        <button class="admin-tab" onclick="switchTab('manage', event)">Manage Designs</button>
       </div>
       <div id="adminContent"></div>
     </div>
@@ -1617,11 +1664,61 @@ body {
 <script>
 // DATA MANAGEMENT
 const STORAGE_KEY = 'snehas_boutique_designs';
+const ADMIN_SESSION_KEY = 'snehas_boutique_admin_auth';
+const ADMIN_USERNAME = 'admin';
+const ADMIN_PASSWORD = 'admin123';
 let designs = [];
 let categories = new Set();
 let currentFilter = 'all';
 let currentTab = 'add';
 let editingId = null;
+
+function isAdminAuthenticated() {
+  return localStorage.getItem(ADMIN_SESSION_KEY) === 'true';
+}
+
+function setAdminAuthenticated(value) {
+  localStorage.setItem(ADMIN_SESSION_KEY, value ? 'true' : 'false');
+}
+
+function ensureAdminControls() {
+  const header = document.querySelector('.admin-hd');
+  if (!header || document.getElementById('logoutBtn')) return;
+  
+  const closeButton = header.querySelector('.modal-x');
+  const actions = document.createElement('div');
+  actions.className = 'admin-hd-actions';
+  
+  const logoutButton = document.createElement('button');
+  logoutButton.id = 'logoutBtn';
+  logoutButton.className = 'pill-btn';
+  logoutButton.textContent = 'Logout';
+  logoutButton.style.display = 'none';
+  logoutButton.onclick = logoutAdmin;
+  
+  actions.appendChild(logoutButton);
+  if (closeButton) {
+    header.insertBefore(actions, closeButton);
+    actions.appendChild(closeButton);
+  } else {
+    header.appendChild(actions);
+  }
+}
+
+function updateAdminHeader() {
+  ensureAdminControls();
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (logoutBtn) {
+    logoutBtn.style.display = isAdminAuthenticated() ? 'inline-flex' : 'none';
+  }
+}
+
+function requireAdminAccess() {
+  if (isAdminAuthenticated()) return true;
+  alert('Please log in as admin to make changes.');
+  openAdmin();
+  return false;
+}
 
 // Load data from localStorage
 function loadData() {
@@ -1759,7 +1856,14 @@ function closeModalBg(event) {
 // ADMIN PANEL
 function openAdmin() {
   document.getElementById('adminBg').classList.add('show');
-  switchTab(currentTab);
+  updateAdminHeader();
+  
+  if (isAdminAuthenticated()) {
+    showAdminTabs();
+    switchTab(currentTab);
+  } else {
+    renderAdminLogin();
+  }
 }
 
 function closeAdmin() {
@@ -1767,20 +1871,86 @@ function closeAdmin() {
   editingId = null;
 }
 
-function switchTab(tab) {
+function switchTab(tab, triggerEvent) {
   currentTab = tab;
   
   // Update tab buttons
   document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-  event.target?.classList.add('active');
-  
-  const content = document.getElementById('adminContent');
+  const sourceEvent = triggerEvent || window.event;
+  if (sourceEvent?.target) {
+    sourceEvent.target.classList.add('active');
+  } else {
+    const tabButtons = document.querySelectorAll('.admin-tab');
+    if (tab === 'add' && tabButtons[0]) tabButtons[0].classList.add('active');
+    if (tab === 'manage' && tabButtons[1]) tabButtons[1].classList.add('active');
+  }
   
   if (tab === 'add') {
     renderAddForm();
   } else {
     renderManageList();
   }
+}
+
+function showAdminTabs() {
+  const tabs = document.querySelector('.admin-tabs');
+  if (tabs) tabs.style.display = 'flex';
+}
+
+function hideAdminTabs() {
+  const tabs = document.querySelector('.admin-tabs');
+  if (tabs) tabs.style.display = 'none';
+}
+
+function renderAdminLogin(errorMessage = '') {
+  hideAdminTabs();
+  document.getElementById('adminContent').innerHTML = `
+    <div class="admin-auth">
+      <div class="admin-auth-card">
+        <div class="admin-auth-title">Admin Login</div>
+        <div class="admin-auth-sub">Sign in to add, edit, or delete designs.</div>
+        <div class="admin-auth-error ${errorMessage ? 'show' : ''}">${errorMessage}</div>
+        <form onsubmit="loginAdmin(event)">
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input type="text" class="form-input" id="adminUsername" required autocomplete="username">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-input" id="adminPassword" required autocomplete="current-password">
+          </div>
+          <div class="btn-row">
+            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="button" class="btn btn-secondary" onclick="closeAdmin()">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  `;
+}
+
+function loginAdmin(event) {
+  event.preventDefault();
+  
+  const username = document.getElementById('adminUsername').value.trim();
+  const password = document.getElementById('adminPassword').value;
+  
+  if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+    setAdminAuthenticated(true);
+    updateAdminHeader();
+    showAdminTabs();
+    switchTab(currentTab);
+    return;
+  }
+  
+  renderAdminLogin('Invalid username or password.');
+}
+
+function logoutAdmin() {
+  editingId = null;
+  setAdminAuthenticated(false);
+  updateAdminHeader();
+  renderAdminLogin();
 }
 
 function renderAddForm() {
@@ -1852,6 +2022,7 @@ function handleImageUpload(event) {
 
 function saveDesign(event) {
   event.preventDefault();
+  if (!requireAdminAccess()) return;
   
   const name = document.getElementById('designName').value.trim();
   const category = document.getElementById('designCategory').value.trim();
@@ -1885,6 +2056,8 @@ function saveDesign(event) {
 }
 
 function saveDesignData(designData) {
+  const isEditing = Boolean(editingId);
+  
   if (editingId) {
     const index = designs.findIndex(d => d.id === editingId);
     designs[index] = designData;
@@ -1898,7 +2071,7 @@ function saveDesignData(designData) {
   renderCollection();
   resetForm();
   
-  alert(editingId ? 'Design updated successfully!' : 'Design added successfully!');
+  alert(isEditing ? 'Design updated successfully!' : 'Design added successfully!');
 }
 
 function resetForm() {
@@ -1939,6 +2112,7 @@ function renderManageList() {
 }
 
 function editDesign(id) {
+  if (!requireAdminAccess()) return;
   editingId = id;
   switchTab('add');
   // Trigger click on Add Design tab
@@ -1947,6 +2121,7 @@ function editDesign(id) {
 }
 
 function deleteDesign(id) {
+  if (!requireAdminAccess()) return;
   if (!confirm('Are you sure you want to delete this design?')) return;
   
   designs = designs.filter(d => d.id !== id);
@@ -1968,6 +2143,8 @@ window.addEventListener('scroll', () => {
 
 // INITIALIZE
 loadData();
+hideAdminTabs();
+updateAdminHeader();
 renderCollection();
 </script>
 
