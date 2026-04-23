@@ -1,6 +1,8 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const path = require("node:path");
+const fs = require("node:fs");
 const { query } = require("./db");
 const { ensureDatabaseSchema } = require("./schema");
 const authRoutes = require("./routes/authRoutes");
@@ -9,6 +11,8 @@ const designRoutes = require("./routes/designRoutes");
 const app = express();
 const port = Number(process.env.PORT || 5000);
 const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+const clientDistPath = path.resolve(__dirname, "../../client/dist");
+const hasClientBuild = fs.existsSync(clientDistPath);
 
 app.use(
   cors({
@@ -31,6 +35,18 @@ app.get("/api/health", async (_req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/designs", designRoutes);
+
+if (hasClientBuild) {
+  app.use(express.static(clientDistPath));
+
+  app.get("*", (req, res, next) => {
+    if (req.path.startsWith("/api")) {
+      return next();
+    }
+
+    return res.sendFile(path.join(clientDistPath, "index.html"));
+  });
+}
 
 app.use((error, _req, res, _next) => {
   console.error(error);

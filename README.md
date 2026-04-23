@@ -94,6 +94,29 @@ Default (from example env):
 - username: `admin`
 - password: `admin123`
 
+## Deploy On Render
+
+The fastest Render setup for this repo is a single web service plus one Render Postgres database. This repo now includes a root `render.yaml` Blueprint for that flow.
+
+1. Push this repo to GitHub.
+2. In Render, choose `New +` -> `Blueprint`.
+3. Select this GitHub repo and keep the detected `render.yaml`.
+4. When prompted, enter values for:
+   - `ADMIN_USERNAME`
+   - `ADMIN_PASSWORD`
+5. Click `Apply`.
+
+Render will:
+
+- create a Node web service
+- create a Postgres database
+- inject `DATABASE_URL`
+- generate `JWT_SECRET`
+- build the React client
+- serve the frontend and `/api` from the same Express app
+
+After the first deploy, open the generated Render URL and use your configured admin credentials to sign in.
+
 ## API Endpoints
 
 Public:

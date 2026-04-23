@@ -1,0 +1,27 @@
+services:
+  - type: web
+    runtime: node
+    name: snehas-boutique
+    plan: free
+    buildCommand: npm run install:all && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_SSL
+        value: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: snehas-boutique-db
+          property: connectionString
+      - key: ADMIN_USERNAME
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+
+databases:
+  - name: snehas-boutique-db
+    plan: free
+    postgresMajorVersion: "18"
