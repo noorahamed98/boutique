@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState } from "react";
 import Icon from "./Icon";
-import { DEFAULT_BADGES, formatCurrency } from "../lib/storefront";
+import { DEFAULT_BADGES } from "../lib/storefront";
 
 function formatDate(value) {
   if (!value) return "Not synced";
@@ -37,12 +37,14 @@ export default function AdminModal({
   designs,
   categories,
   categoryStats,
-  favoriteCount,
+  imageCount,
+  whatsappInquiryCount,
   onEditDesign,
   onDeleteDesign
 }) {
   const fileInputRef = useRef(null);
   const [manageQuery, setManageQuery] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const filteredDesigns = useMemo(() => {
     const query = manageQuery.trim().toLowerCase();
@@ -54,8 +56,6 @@ export default function AdminModal({
         .some((value) => value.toLowerCase().includes(query))
     );
   }, [designs, manageQuery]);
-
-  const imageCount = useMemo(() => designs.filter((design) => Boolean(design.image)).length, [designs]);
 
   if (!isOpen) return null;
 
@@ -91,8 +91,9 @@ export default function AdminModal({
             <div className="admin-auth">
               <div className="admin-auth-card">
                 <div className="admin-auth-title">Admin Login</div>
-                <div className="admin-auth-sub">Sign in to add, edit, or delete catalog designs.</div>
+                <div className="admin-auth-sub">Sign in to add, edit, and organize the boutique catalog.</div>
                 <div className={`admin-auth-error ${loginError ? "show" : ""}`}>{loginError}</div>
+
                 <form onSubmit={onLoginSubmit}>
                   <div className="form-group">
                     <label className="form-label" htmlFor="adminUsername">
@@ -108,20 +109,32 @@ export default function AdminModal({
                       onChange={(event) => onLoginFormChange("username", event.target.value)}
                     />
                   </div>
+
                   <div className="form-group">
                     <label className="form-label" htmlFor="adminPassword">
                       Password
                     </label>
-                    <input
-                      id="adminPassword"
-                      type="password"
-                      className="form-input"
-                      autoComplete="current-password"
-                      required
-                      value={loginForm.password}
-                      onChange={(event) => onLoginFormChange("password", event.target.value)}
-                    />
+                    <div className="password-field">
+                      <input
+                        id="adminPassword"
+                        type={showPassword ? "text" : "password"}
+                        className="form-input password-input"
+                        autoComplete="current-password"
+                        required
+                        value={loginForm.password}
+                        onChange={(event) => onLoginFormChange("password", event.target.value)}
+                      />
+                      <button
+                        className="password-visibility-btn"
+                        type="button"
+                        onClick={() => setShowPassword((previous) => !previous)}
+                        aria-label={showPassword ? "Hide password" : "Show password"}
+                      >
+                        <Icon name={showPassword ? "eye-off" : "eye"} />
+                      </button>
+                    </div>
                   </div>
+
                   <div className="btn-row">
                     <button type="submit" className="btn btn-primary">
                       Login
@@ -138,7 +151,7 @@ export default function AdminModal({
               <div className="admin-stats">
                 <div>
                   <strong>{designs.length}</strong>
-                  <span>Total designs</span>
+                  <span>Designs added</span>
                 </div>
                 <div>
                   <strong>{categoryStats.length}</strong>
@@ -146,11 +159,11 @@ export default function AdminModal({
                 </div>
                 <div>
                   <strong>{imageCount}</strong>
-                  <span>With images</span>
+                  <span>Images uploaded</span>
                 </div>
                 <div>
-                  <strong>{favoriteCount}</strong>
-                  <span>Wishlist saves</span>
+                  <strong>{whatsappInquiryCount}</strong>
+                  <span>Order requests</span>
                 </div>
               </div>
 
@@ -191,6 +204,7 @@ export default function AdminModal({
                         onChange={(event) => onDesignFormChange("name", event.target.value)}
                       />
                     </div>
+
                     <div className="form-group">
                       <label className="form-label" htmlFor="designCategory">
                         Category *
@@ -207,39 +221,6 @@ export default function AdminModal({
                           </option>
                         ))}
                       </select>
-                    </div>
-                  </div>
-
-                  <div className="form-row">
-                    <div className="form-group">
-                      <label className="form-label" htmlFor="designPrice">
-                        Current Price
-                      </label>
-                      <input
-                        id="designPrice"
-                        type="number"
-                        min="0"
-                        step="0.01"
-                        className="form-input"
-                        placeholder="659.00"
-                        value={designForm.price}
-                        onChange={(event) => onDesignFormChange("price", event.target.value)}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label" htmlFor="designOriginalPrice">
-                        Original Price
-                      </label>
-                      <input
-                        id="designOriginalPrice"
-                        type="number"
-                        min="0"
-                        step="0.01"
-                        className="form-input"
-                        placeholder="1299.00"
-                        value={designForm.originalPrice}
-                        onChange={(event) => onDesignFormChange("originalPrice", event.target.value)}
-                      />
                     </div>
                   </div>
 
@@ -318,6 +299,7 @@ export default function AdminModal({
                         </>
                       )}
                     </div>
+
                     <input
                       id="imageInput"
                       ref={fileInputRef}
@@ -372,9 +354,7 @@ export default function AdminModal({
                           <div className="manage-item-info">
                             <div className="manage-item-name">{design.name}</div>
                             <div className="manage-item-cat">{design.category}</div>
-                            <div className="manage-item-date">
-                              {formatCurrency(design.price)}{Number.isFinite(design.originalPrice) ? ` • was ${formatCurrency(design.originalPrice)}` : ""}
-                            </div>
+                            <div className="manage-item-date">{design.badge ? `Badge: ${design.badge}` : "Badge: Auto"}</div>
                             <div className="manage-item-date">Updated {formatDate(design.updated_at)}</div>
                           </div>
                           <div className="manage-item-actions">

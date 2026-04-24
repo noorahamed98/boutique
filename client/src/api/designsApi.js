@@ -1,4 +1,4 @@
-const API_BASE = "/api";
+import { getApiUrl } from "./apiBase";
 
 async function request(path, options = {}) {
   const headers = {
@@ -9,7 +9,7 @@ async function request(path, options = {}) {
     headers["Content-Type"] = "application/json";
   }
 
-  const response = await fetch(`${API_BASE}${path}`, {
+  const response = await fetch(getApiUrl(path), {
     headers,
     ...options
   });
@@ -40,6 +40,16 @@ function authHeaders(token) {
 export function getDesigns(category = "") {
   const query = category ? `?category=${encodeURIComponent(category)}` : "";
   return request(`/designs${query}`);
+}
+
+export function getSiteMetrics() {
+  return request("/metrics");
+}
+
+export function recordWhatsAppInquiry() {
+  return request("/metrics/whatsapp-inquiries", {
+    method: "POST"
+  });
 }
 
 export function loginAdmin(username, password) {

@@ -1,57 +1,46 @@
-import Icon from "./Icon";
 import { createGeneralInquiryMessage, createWhatsAppLink } from "../lib/storefront";
 
 const NAV_ITEMS = [
-  { id: "collection", label: "Shop All" },
-  { id: "home", label: "Collections" },
-  { id: "about", label: "About" },
-  { id: "contact", label: "Contact" },
-  { id: "sizes", label: "Size Chart" }
+  { id: "home", label: "HOME" },
+  { id: "collection", label: "COLLECTION" },
+  { id: "about", label: "ABOUT" },
+  { id: "contact", label: "CONTACT" },
+  { id: "sizes", label: "SIZE CHART" }
 ];
 
-export default function Navbar({ currentPage, onNavigate, onOpenWishlist, isScrolled, favoriteCount }) {
+export default function Navbar({ currentPage, onNavigate, onTrackInquiry }) {
   return (
-    <header className={`site-header ${isScrolled ? "scrolled" : ""}`}>
-      <div className="top-announcement">Pure cotton handlooms, custom fits, and heartfelt craftsmanship.</div>
-
-      <nav className="nav" id="mainNav">
-        <button className="nav-brand" type="button" onClick={() => onNavigate("home")} aria-label="Go to home">
-          <span className="nav-mark" aria-hidden="true">
-            <img src="/assets/nav-logo.png" alt="" />
-          </span>
-          <span className="nav-copy">
-            <span className="nav-name">Sneha&apos;s Boutique</span>
-            <span className="nav-sub">Made with love</span>
+    <header className="site-header wix-header">
+      <nav className="wix-nav" id="mainNav">
+        <button className="wix-brand" type="button" onClick={() => onNavigate("home")} aria-label="Go to home">
+          <span className="logo-container">
+            <img src="/assets/home-references/brand-monogram.png" alt="" />
+            <span className="brand-name">Sneha&apos;s Boutique</span>
           </span>
         </button>
 
-        <div className="nav-menu" aria-label="Primary navigation">
-          {NAV_ITEMS.map((item) => (
-            <button
-              key={item.id}
-              className={`nav-btn ${currentPage === item.id ? "on" : ""}`}
-              onClick={() => onNavigate(item.id)}
-              type="button"
-              id={`nb-${item.id}`}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
+        <div className="wix-nav-right">
+          <div className="wix-nav-links" aria-label="Primary navigation">
+            {NAV_ITEMS.map((item) => (
+              <button
+                key={item.id}
+                className={`wix-nav-btn ${currentPage === item.id ? "active" : ""}`}
+                onClick={() => onNavigate(item.id)}
+                type="button"
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
 
-        <div className="nav-right">
-          <button className="icon-action" type="button" onClick={onOpenWishlist} aria-label="Open wishlist">
-            <Icon name="heart" />
-            {favoriteCount > 0 ? <span className="badge-dot">{favoriteCount}</span> : null}
-          </button>
           <a
-            className="nav-link-btn"
+            className="wix-inquire-btn wix-header-cta"
             href={createWhatsAppLink(createGeneralInquiryMessage())}
             target="_blank"
             rel="noreferrer"
+            onClick={onTrackInquiry}
           >
-            <Icon name="message" />
-            <span>WhatsApp</span>
+            Inquire Now
           </a>
         </div>
       </nav>

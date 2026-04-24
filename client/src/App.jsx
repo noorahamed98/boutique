@@ -3,6 +3,7 @@ import {
   createDesign,
   deleteDesign,
   getDesigns,
+  getSiteMetrics,
   loginAdmin,
   updateDesign,
   verifyAdminToken
@@ -17,7 +18,13 @@ import DesignModal from "./components/DesignModal";
 import AdminModal from "./components/AdminModal";
 import SiteFooter from "./components/SiteFooter";
 import Icon from "./components/Icon";
-import { DEFAULT_BADGES, PUBLIC_CATEGORIES, STUDIO_HASH, sanitizeDesign } from "./lib/storefront";
+import {
+  DEFAULT_BADGES,
+  PUBLIC_CATEGORIES,
+  STUDIO_HASH,
+  sanitizeDesign,
+  trackWhatsAppInquiry
+} from "./lib/storefront";
 
 const ADMIN_TOKEN_KEY = "snehas_boutique_admin_token";
 const WISHLIST_KEY = "snehas_boutique_wishlist";
@@ -26,8 +33,6 @@ const EMPTY_FORM = {
   category: PUBLIC_CATEGORIES[0].name,
   description: "",
   image: null,
-  price: "",
-  originalPrice: "",
   badge: DEFAULT_BADGES[0]
 };
 
@@ -64,11 +69,11 @@ function Toast({ toast, onClose }) {
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("home");
-  const [isScrolled, setIsScrolled] = useState(false);
 
   const [designs, setDesigns] = useState([]);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState("");
+  const [whatsappInquiryCount, setWhatsAppInquiryCount] = useState(0);
   const [currentFilter, setCurrentFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [currentSort, setCurrentSort] = useState("newest");
@@ -132,6 +137,7 @@ export default function App() {
   }, [designs]);
 
   const latestDesign = featuredDesigns[0] || null;
+  const imageCount = useMemo(() => designs.filter((design) => Boolean(design.image)).length, [designs]);
 
   const collectionHighlights = useMemo(() => {
     return PUBLIC_CATEGORIES.map((category) => ({
@@ -139,21 +145,6 @@ export default function App() {
       design: designs.find((design) => design.category === category.name) || latestDesign || null
     }));
   }, [designs, latestDesign]);
-
-  const customerFavorites = useMemo(() => {
-    const merged = [];
-    const favoriteDesigns = designs.filter((design) => favoriteIds.includes(design.id));
-    const fallback = [...designs].sort((a, b) => designTimestamp(b) - designTimestamp(a));
-
-    [...favoriteDesigns, ...fallback].forEach((design) => {
-      if (!design) return;
-      if (merged.some((item) => item.id === design.id)) return;
-      if (merged.length >= 4) return;
-      merged.push(design);
-    });
-
-    return merged;
-  }, [designs, favoriteIds]);
 
   const inspirationDesigns = useMemo(() => {
     const ordered = [...designs].sort((a, b) => designTimestamp(b) - designTimestamp(a));
@@ -183,13 +174,6 @@ export default function App() {
   }, [designs, latestDesign]);
 
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 50);
-    onScroll();
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
     localStorage.setItem(WISHLIST_KEY, JSON.stringify(favoriteIds));
   }, [favoriteIds]);
 
@@ -209,13 +193,16 @@ export default function App() {
   useEffect(() => {
     let cancelled = false;
 
-    async function fetchAllDesigns() {
+    async function fetchInitialData() {
       setLoading(true);
       setFetchError("");
 
       try {
-        const data = await getDesigns();
-        if (!cancelled) setDesigns(prepareDesigns(data));
+        const [designData, metricData] = await Promise.all([getDesigns(), getSiteMetrics()]);
+        if (!cancelled) {
+          setDesigns(prepareDesigns(designData));
+          setWhatsAppInquiryCount(Number(metricData?.whatsappInquiries || 0));
+        }
       } catch (error) {
         if (!cancelled) setFetchError(error.message || "Unable to fetch designs.");
       } finally {
@@ -223,7 +210,7 @@ export default function App() {
       }
     }
 
-    fetchAllDesigns();
+    fetchInitialData();
 
     return () => {
       cancelled = true;
@@ -306,6 +293,20 @@ export default function App() {
   function openWishlist() {
     setCurrentFilter("favorites");
     navigate("collection");
+  }
+
+  function openAdminPanel() {
+    const url = new URL(window.location.href);
+    url.hash = STUDIO_HASH;
+    window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+    setIsAdminOpen(true);
+    setLoginError("");
+    setFormError("");
+  }
+
+  function handleWhatsAppInquiry() {
+    setWhatsAppInquiryCount((previous) => previous + 1);
+    trackWhatsAppInquiry();
   }
 
   async function refreshDesigns() {
@@ -408,8 +409,6 @@ export default function App() {
       category: design.category,
       description: design.description,
       image: design.image || null,
-      price: design.price ?? "",
-      originalPrice: design.originalPrice ?? "",
       badge: design.badge || DEFAULT_BADGES[0]
     });
     setFormError("");
@@ -436,8 +435,6 @@ export default function App() {
       category: designForm.category,
       description: designForm.description.trim(),
       image: designForm.image || null,
-      price: designForm.price === "" ? null : designForm.price,
-      originalPrice: designForm.originalPrice === "" ? null : designForm.originalPrice,
       badge: designForm.badge || null
     };
 
@@ -513,22 +510,21 @@ export default function App() {
       <Navbar
         currentPage={currentPage}
         onNavigate={navigate}
-        onOpenWishlist={openWishlist}
-        isScrolled={isScrolled}
-        favoriteCount={favoriteIds.length}
+        onTrackInquiry={handleWhatsAppInquiry}
       />
 
       <div className={`view ${currentPage === "home" ? "show" : ""}`} id="v-home">
         <HomeView
+          key={`home-${currentPage === "home" ? "active" : "inactive"}`}
           onNavigate={navigate}
           onExploreCategory={exploreCategory}
+          onOpenFavorites={openWishlist}
+          onTrackInquiry={handleWhatsAppInquiry}
           heroDesign={latestDesign}
-          newArrivals={featuredDesigns}
           collectionHighlights={collectionHighlights}
-          customerFavorites={customerFavorites}
+          favoriteCount={favoriteIds.length}
           inspirationDesigns={inspirationDesigns}
           storyDesign={storyDesign}
-          loading={loading}
           onOpenDesign={setSelectedDesign}
         />
       </div>
@@ -545,7 +541,7 @@ export default function App() {
           sortBy={currentSort}
           viewMode={viewMode}
           favoriteIds={favoriteIds}
-          favoriteCount={favoriteIds.length}
+          onTrackInquiry={handleWhatsAppInquiry}
           onRetry={refreshDesigns}
           onFilter={setCurrentFilter}
           onSearch={setSearchTerm}
@@ -561,19 +557,23 @@ export default function App() {
       </div>
 
       <div className={`view ${currentPage === "contact" ? "show" : ""}`} id="v-contact">
-        <ContactView />
+        <ContactView onTrackInquiry={handleWhatsAppInquiry} />
       </div>
 
       <div className={`view ${currentPage === "sizes" ? "show" : ""}`} id="v-sizes">
-        <SizesView />
+        <SizesView onTrackInquiry={handleWhatsAppInquiry} />
       </div>
 
-      <SiteFooter onNavigate={navigate} />
+      <SiteFooter
+        designCount={designs.length}
+        imageCount={imageCount}
+        whatsappInquiryCount={whatsappInquiryCount}
+        onOpenAdmin={openAdminPanel}
+      />
 
       <DesignModal
         design={selectedDesign}
-        isFavorite={selectedDesign ? favoriteIds.includes(selectedDesign.id) : false}
-        onToggleFavorite={handleFavoriteToggle}
+        onTrackInquiry={handleWhatsAppInquiry}
         onClose={() => setSelectedDesign(null)}
       />
 
@@ -599,7 +599,8 @@ export default function App() {
         designs={designs}
         categories={categories}
         categoryStats={categoryStats}
-        favoriteCount={favoriteIds.length}
+        imageCount={imageCount}
+        whatsappInquiryCount={whatsappInquiryCount}
         onEditDesign={beginEditDesign}
         onDeleteDesign={handleDeleteDesign}
       />

@@ -5,12 +5,13 @@ import {
   createWhatsAppLink,
   formatCurrency
 } from "../lib/storefront";
+import ScrollReveal from "./ScrollReveal";
 
 function SkeletonGrid() {
   return (
     <>
       {[1, 2, 3, 4, 5, 6].map((item) => (
-        <div className="design-card skeleton-card" key={item}>
+        <div className="wix-catalog-card skeleton-card" key={item}>
           <div className="skeleton-img" />
           <div className="design-info">
             <div className="skeleton-line short" />
@@ -23,125 +24,59 @@ function SkeletonGrid() {
   );
 }
 
+function designImage(design) {
+  return design?.image || "/assets/boutique-logo.jpg";
+}
+
+function hasPrice(design) {
+  return Number.isFinite(design?.price);
+}
+
 export default function CollectionView({
   filteredDesigns,
-  totalDesigns,
-  currentFilter,
   categories,
   loading,
   error,
   searchTerm,
   sortBy,
-  viewMode,
-  favoriteIds,
-  favoriteCount,
+  currentFilter,
+  onTrackInquiry,
   onRetry,
   onFilter,
   onSearch,
   onSort,
-  onViewMode,
-  onOpenDesign,
-  onToggleFavorite
+  onOpenDesign
 }) {
-  const hasFilters = currentFilter !== "all" || searchTerm.trim();
-
   return (
     <>
-      <section className="coll-header">
-        <div>
-          <div className="section-kicker">Shop All</div>
-          <div className="coll-title">Curated boutique catalog</div>
-          <div className="coll-count">
-            Showing {filteredDesigns.length} of {totalDesigns} design{totalDesigns !== 1 ? "s" : ""}
+      <section className="wix-page-shell wix-collection-toolbar-shell">
+        <ScrollReveal className="wix-collection-toolbar wix-collection-toolbar-exact" direction="up">
+          <div className="wix-collection-left">
+            <label className="wix-search-field exact" htmlFor="collectionSearch">
+              <input
+                id="collectionSearch"
+                type="search"
+                value={searchTerm}
+                onChange={(event) => onSearch(event.target.value)}
+                placeholder="Search by design name, category, or description..."
+              />
+            </label>
+
+            <a
+              className="wix-inquire-btn inline"
+              href={createWhatsAppLink(createGeneralInquiryMessage())}
+              target="_blank"
+              rel="noreferrer"
+              onClick={onTrackInquiry}
+            >
+              Inquire Now
+            </a>
           </div>
-        </div>
-        <a
-          className="pill-link"
-          href={createWhatsAppLink(createGeneralInquiryMessage())}
-          target="_blank"
-          rel="noreferrer"
-        >
-          <Icon name="message" />
-          Ask on WhatsApp
-        </a>
-      </section>
 
-      <div className="collection-panel">
-        <div className="collection-tools">
-          <label className="search-box" htmlFor="collectionSearch">
-            <Icon name="search" />
-            <input
-              id="collectionSearch"
-              type="search"
-              value={searchTerm}
-              onChange={(event) => onSearch(event.target.value)}
-              placeholder="Search designs, categories, or details"
-            />
-          </label>
-
-          <label className="sort-control" htmlFor="collectionSort">
-            <span>Sort</span>
-            <select id="collectionSort" value={sortBy} onChange={(event) => onSort(event.target.value)}>
-              <option value="newest">Latest first</option>
-              <option value="name">Name A-Z</option>
-              <option value="category">Category</option>
-            </select>
-          </label>
-
-          <div className="segmented-control" aria-label="Collection view">
+          <div className="wix-collection-right">
             <button
               type="button"
-              className={viewMode === "grid" ? "active" : ""}
-              onClick={() => onViewMode("grid")}
-              title="Grid view"
-              aria-label="Grid view"
-            >
-              <Icon name="grid" />
-            </button>
-            <button
-              type="button"
-              className={viewMode === "list" ? "active" : ""}
-              onClick={() => onViewMode("list")}
-              title="List view"
-              aria-label="List view"
-            >
-              <Icon name="list" />
-            </button>
-          </div>
-        </div>
-
-        <div className="filter-row">
-          <button
-            type="button"
-            className={`f-btn ${currentFilter === "all" ? "on" : ""}`}
-            onClick={() => onFilter("all")}
-          >
-            All
-            <span>{totalDesigns}</span>
-          </button>
-          <button
-            type="button"
-            className={`f-btn ${currentFilter === "favorites" ? "on" : ""}`}
-            onClick={() => onFilter("favorites")}
-          >
-            Wishlist
-            <span>{favoriteCount}</span>
-          </button>
-          {categories.map((category) => (
-            <button
-              key={category.name}
-              type="button"
-              className={`f-btn ${currentFilter === category.name ? "on" : ""}`}
-              onClick={() => onFilter(category.name)}
-            >
-              {category.name}
-              <span>{category.count}</span>
-            </button>
-          ))}
-          {hasFilters ? (
-            <button
-              type="button"
-              className="f-btn clear"
+              className="wix-clear-btn"
               onClick={() => {
                 onFilter("all");
                 onSearch("");
@@ -149,11 +84,43 @@ export default function CollectionView({
             >
               Clear
             </button>
-          ) : null}
-        </div>
-      </div>
 
-      <div className={`coll-grid ${viewMode === "list" ? "list-mode" : ""}`}>
+            <label className="wix-select-group" htmlFor="collectionCategory">
+              <span>CATEGORY</span>
+              <select
+                id="collectionCategory"
+                value={currentFilter === "favorites" ? "all" : currentFilter}
+                onChange={(event) => onFilter(event.target.value)}
+              >
+                <option value="all">All</option>
+                {categories.map((category) => (
+                  <option key={category.name} value={category.name}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="wix-select-group" htmlFor="collectionSort">
+              <span>SORT BY</span>
+              <select id="collectionSort" value={sortBy} onChange={(event) => onSort(event.target.value)}>
+                <option value="newest">Newest</option>
+                <option value="name">Name A-Z</option>
+                <option value="category">Category</option>
+              </select>
+            </label>
+          </div>
+        </ScrollReveal>
+      </section>
+
+      <section className="wix-page-shell wix-collection-title-block">
+        <ScrollReveal direction="up">
+          <span className="wix-eyebrow">CURATED COLLECTION</span>
+          <h1>Handcrafted pieces for refined everyday elegance.</h1>
+        </ScrollReveal>
+      </section>
+
+      <section className="wix-page-shell wix-catalog-grid">
         {loading && <SkeletonGrid />}
 
         {!loading && error && (
@@ -161,7 +128,7 @@ export default function CollectionView({
             <div className="empty-icon">!</div>
             <div className="empty-text">Could not load designs</div>
             <div className="empty-sub">{error}</div>
-            <button className="pill-btn solid" type="button" onClick={onRetry}>
+            <button className="wix-secondary-btn" type="button" onClick={onRetry}>
               Try Again
             </button>
           </div>
@@ -169,25 +136,18 @@ export default function CollectionView({
 
         {!loading && !error && filteredDesigns.length === 0 && (
           <div className="empty-state">
-            <div className="empty-icon">{currentFilter === "favorites" ? "Saved" : "No"}</div>
-            <div className="empty-text">
-              {currentFilter === "favorites" ? "Your wishlist is empty" : "No designs found"}
-            </div>
-            <div className="empty-sub">
-              {currentFilter === "favorites"
-                ? "Save designs from the collection to compare them later."
-                : hasFilters
-                  ? "Try a broader search or clear the active filters."
-                  : "Start a WhatsApp conversation to ask for fresh arrivals or custom-made looks."}
-            </div>
+            <div className="empty-icon">No</div>
+            <div className="empty-text">No designs found</div>
+            <div className="empty-sub">Try a broader search or start a WhatsApp inquiry for custom recommendations.</div>
             <a
-              className="pill-link"
+              className="wix-inquire-btn inline"
               href={createWhatsAppLink(createGeneralInquiryMessage())}
               target="_blank"
               rel="noreferrer"
+              onClick={onTrackInquiry}
             >
               <Icon name="message" />
-              Chat on WhatsApp
+              Inquire Now
             </a>
           </div>
         )}
@@ -195,62 +155,35 @@ export default function CollectionView({
         {!loading &&
           !error &&
           filteredDesigns.length > 0 &&
-          filteredDesigns.map((design) => {
-            const isFavorite = favoriteIds.includes(design.id);
+          filteredDesigns.map((design, index) => (
+            <ScrollReveal key={design.id} as="article" className="wix-catalog-card" direction="up" delay={Math.min(index, 8) * 70}>
+              <button className="wix-catalog-image" type="button" onClick={() => onOpenDesign(design)}>
+                <img src={designImage(design)} alt={design.name} />
+              </button>
 
-            return (
-              <article key={design.id} className="design-card product-card">
-                <button className="design-media product-media" type="button" onClick={() => onOpenDesign(design)}>
-                  {design.image ? (
-                    <img src={design.image} alt={design.name} className="design-img" />
-                  ) : (
-                    <span className="design-img">Design</span>
-                  )}
-                  <span className="product-badge">{design.badge}</span>
-                </button>
+              <div className={`wix-catalog-price ${hasPrice(design) ? "" : "is-request"}`.trim()}>
+                {hasPrice(design) ? formatCurrency(design.price) : "Pricing shared on request"}
+              </div>
 
-                <button
-                  className={`save-btn ${isFavorite ? "saved" : ""}`}
-                  type="button"
-                  title={isFavorite ? "Remove from wishlist" : "Save to wishlist"}
-                  aria-label={isFavorite ? "Remove from wishlist" : "Save to wishlist"}
-                  onClick={() => onToggleFavorite(design)}
-                >
-                  <Icon name="heart" />
-                </button>
+              <a
+                className="wix-catalog-cta"
+                href={createWhatsAppLink(createDesignInquiryMessage(design))}
+                target="_blank"
+                rel="noreferrer"
+                onClick={onTrackInquiry}
+              >
+                Inquire via WhatsApp
+              </a>
 
-                <div className="design-info">
-                  <div className="design-cat">{design.category}</div>
-                  <div className="design-name">{design.name}</div>
-                  <div className="design-desc">{design.description}</div>
+              <div className="wix-catalog-badge">{design.badge}</div>
 
-                  <div className="price-stack">
-                    {Number.isFinite(design.originalPrice) ? (
-                      <span className="price-compare">{formatCurrency(design.originalPrice)}</span>
-                    ) : null}
-                    <strong>{formatCurrency(design.price)}</strong>
-                  </div>
-
-                  <div className="card-actions">
-                    <button className="text-action" type="button" onClick={() => onOpenDesign(design)}>
-                      <Icon name="eye" />
-                      Details
-                    </button>
-                    <a
-                      className="text-action primary"
-                      href={createWhatsAppLink(createDesignInquiryMessage(design))}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Icon name="message" />
-                      WhatsApp
-                    </a>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
-      </div>
+              <button className="wix-catalog-title" type="button" onClick={() => onOpenDesign(design)}>
+                {design.name}
+              </button>
+              <div className="wix-catalog-category">{design.category}</div>
+            </ScrollReveal>
+          ))}
+      </section>
     </>
   );
 }

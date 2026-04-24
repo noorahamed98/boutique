@@ -61,6 +61,15 @@ cp server/.env.example server/.env
 
 Then edit `server/.env` with your PostgreSQL credentials and a strong `JWT_SECRET`.
 
+If you deploy the frontend separately on Cloudflare Pages, also set these backend allowlist values in `server/.env` or your hosting provider:
+
+```bash
+FRONTEND_URL=https://your-project.pages.dev
+FRONTEND_URL_SUFFIXES=.pages.dev
+```
+
+`FRONTEND_URL_SUFFIXES=.pages.dev` allows Cloudflare Pages preview deployments to reach the API. Leave it empty if you only want to allow exact origins.
+
 Create the PostgreSQL database if it does not exist:
 
 ```sql
@@ -116,6 +125,29 @@ Render will:
 - serve the frontend and `/api` from the same Express app
 
 After the first deploy, open the generated Render URL and use your configured admin credentials to sign in.
+
+## Deploy Frontend On Cloudflare Pages
+
+The current codebase is still a split deployment when using Cloudflare:
+
+- `client/` can deploy to Cloudflare Pages
+- `server/` should stay on Render or another Node.js + PostgreSQL host unless you do a separate Cloudflare backend migration
+
+This repo now includes `.github/workflows/deploy-cloudflare-pages.yml` so every GitHub push builds the frontend and deploys it to Cloudflare Pages automatically.
+
+1. Create a Cloudflare Pages project once in the Cloudflare dashboard.
+2. In GitHub repository settings, add these secrets:
+   - `CLOUDFLARE_API_TOKEN`
+   - `CLOUDFLARE_ACCOUNT_ID`
+3. In GitHub repository settings, add these variables:
+   - `CLOUDFLARE_PAGES_PROJECT_NAME`
+   - `VITE_API_BASE_URL`
+4. Set `VITE_API_BASE_URL` to your live backend API base, for example `https://your-api-host.example.com/api`.
+5. Update the backend host environment so CORS allows your Pages domain:
+   - `FRONTEND_URL=https://your-project.pages.dev`
+   - optional: `FRONTEND_URL_SUFFIXES=.pages.dev`
+
+When you push to `main`, Cloudflare Pages will create the production deployment. Pushes to other branches will create Pages preview deployments.
 
 ## API Endpoints
 

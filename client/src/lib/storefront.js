@@ -1,5 +1,9 @@
+import { getApiUrl } from "../api/apiBase";
+
 export const STUDIO_HASH = "#studio-admin";
 export const WHATSAPP_NUMBER = "918008088088";
+export const BUSINESS_PHONE_DISPLAY = "+91 80080 88088";
+export const BUSINESS_ADDRESS = "Ongole, AP 523001";
 export const DEFAULT_BADGES = ["", "New Arrival", "Sale", "Handpicked", "Bestseller"];
 
 export const PUBLIC_CATEGORIES = [
@@ -97,6 +101,24 @@ export function sanitizeDesign(design = {}) {
 
 export function createWhatsAppLink(message) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
+
+export function trackWhatsAppInquiry() {
+  const endpoint = getApiUrl("/metrics/whatsapp-inquiries");
+
+  try {
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(endpoint, new Blob([], { type: "application/octet-stream" }));
+      return;
+    }
+
+    fetch(endpoint, {
+      method: "POST",
+      keepalive: true
+    }).catch(() => {});
+  } catch {
+    // Ignore telemetry failures so the customer flow stays uninterrupted.
+  }
 }
 
 export function createGeneralInquiryMessage() {

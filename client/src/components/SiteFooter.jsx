@@ -1,112 +1,43 @@
-import { useState } from "react";
-import Icon from "./Icon";
-import { createWhatsAppLink } from "../lib/storefront";
+import { BUSINESS_ADDRESS, BUSINESS_PHONE_DISPLAY } from "../lib/storefront";
 
-const FOOTER_COLUMNS = [
-  {
-    title: "Shop",
-    links: [
-      { label: "Shop All", page: "collection" },
-      { label: "Collections", page: "home" },
-      { label: "About Us", page: "about" }
-    ]
-  },
-  {
-    title: "Customer Care",
-    links: [
-      { label: "Contact Us", page: "contact" },
-      { label: "Size Chart", page: "sizes" },
-      { label: "WhatsApp Support", href: createWhatsAppLink("Namaste Sneha's Boutique, I need help with my order.") }
-    ]
-  }
-];
-
-export default function SiteFooter({ onNavigate }) {
-  const [email, setEmail] = useState("");
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    const message = [
-      "Namaste Sneha's Boutique,",
-      "I would like to join your community and receive updates on new arrivals and offers.",
-      email ? `Email: ${email}` : ""
-    ]
-      .filter(Boolean)
-      .join(" ");
-
-    window.open(createWhatsAppLink(message), "_blank", "noopener,noreferrer");
-  }
-
+export default function SiteFooter({ designCount, imageCount, whatsappInquiryCount, onOpenAdmin }) {
   return (
-    <footer className="site-footer">
-      <section className="community-band">
+    <footer className="site-footer wix-footer">
+      <section className="wix-stats-band">
         <div>
-          <span className="section-kicker">Join Our Community</span>
-          <h2>Be the first to know about new arrivals and boutique updates.</h2>
+          <strong>{designCount}</strong>
+          <span>DESIGNS ADDED</span>
         </div>
-        <form className="community-form" onSubmit={handleSubmit}>
-          <input
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            placeholder="Your email address"
-          />
-          <button className="pill-btn solid" type="submit">
-            Subscribe
-          </button>
-        </form>
+        <div>
+          <strong>{imageCount}</strong>
+          <span>IMAGES UPLOADED</span>
+        </div>
+        <div>
+          <strong>{whatsappInquiryCount}</strong>
+          <span>ORDER REQUESTS</span>
+        </div>
       </section>
 
-      <section className="footer-grid">
-        <div className="footer-brand">
-          <img src="/assets/nav-logo.png" alt="Snehas Boutique logo" />
-          <h3>Snehas Boutique</h3>
-          <p>Made with love, attention to detail, and a deep respect for comfort, craft, and heritage.</p>
-          <div className="footer-socials">
-            <a href={createWhatsAppLink("Namaste Sneha's Boutique, I found you through the website.")} target="_blank" rel="noreferrer">
-              <Icon name="message" />
-            </a>
-            <a href="mailto:hello@snehasboutique.com">
-              <Icon name="mail" />
-            </a>
-          </div>
+      <section className="wix-page-shell wix-footer-grid">
+        <div className="wix-footer-brand">
+          <img src="/assets/home-references/brand-monogram.png" alt="Sneha's Boutique logo" />
+          <h4>SNEHA&apos;S BOUTIQUE</h4>
+          <p>ELEVATING HANDCRAFTED ELEGANCE THROUGH CURATED FABRICS AND BESPOKE CRAFTSMANSHIP.</p>
         </div>
 
-        {FOOTER_COLUMNS.map((column) => (
-          <div className="footer-column" key={column.title}>
-            <h4>{column.title}</h4>
-            <div className="footer-links">
-              {column.links.map((link) =>
-                link.page ? (
-                  <button key={link.label} type="button" onClick={() => onNavigate(link.page)}>
-                    {link.label}
-                  </button>
-                ) : (
-                  <a key={link.label} href={link.href} target="_blank" rel="noreferrer">
-                    {link.label}
-                  </a>
-                )
-              )}
-            </div>
-          </div>
-        ))}
+        <div>
+          <h4>CONTACT</h4>
+          <p>{BUSINESS_PHONE_DISPLAY}</p>
+          <p>{BUSINESS_ADDRESS}</p>
+        </div>
 
-        <div className="footer-column">
-          <h4>Get In Touch</h4>
-          <div className="footer-contact-list">
-            <div>
-              <strong>Phone</strong>
-              <span>8008088088</span>
-            </div>
-            <div>
-              <strong>Email</strong>
-              <span>hello@snehasboutique.com</span>
-            </div>
-            <div>
-              <strong>Studio</strong>
-              <span>Ongole, Andhra Pradesh</span>
-            </div>
-          </div>
+        <div>
+          <h4>STUDIO</h4>
+          <p>Private access for the boutique team.</p>
+          <button className="wix-footer-admin" type="button" onClick={onOpenAdmin}>
+            Studio Login
+          </button>
+          <p className="wix-footer-meta">Shortcut: Ctrl + Shift + A</p>
         </div>
       </section>
     </footer>

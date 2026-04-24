@@ -17,6 +17,16 @@ ALTER TABLE designs ADD COLUMN IF NOT EXISTS badge VARCHAR(32);
 
 CREATE INDEX IF NOT EXISTS designs_category_idx ON designs (category);
 
+CREATE TABLE IF NOT EXISTS site_metrics (
+  metric_key VARCHAR(64) PRIMARY KEY,
+  metric_value INTEGER NOT NULL DEFAULT 0,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+INSERT INTO site_metrics (metric_key, metric_value)
+VALUES ('whatsapp_inquiries', 0)
+ON CONFLICT (metric_key) DO NOTHING;
+
 CREATE OR REPLACE FUNCTION set_design_updated_at()
 RETURNS TRIGGER AS $$
 BEGIN
