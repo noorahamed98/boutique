@@ -4669,7 +4669,7 @@ body {
 
 .wix-catalog-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.6rem;
   padding-top: 2.2rem;
   padding-bottom: 3rem;
@@ -7197,5 +7197,89 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .auto-scroll-gallery-track.is-animated {
     animation: none;
+  }
+}
+
+/* April 26, 2026 adaptive collection and modal image rendering */
+
+.wix-catalog-image {
+  overflow: hidden;
+}
+
+.adaptive-design-image {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.adaptive-design-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.adaptive-design-image.catalog.tall img,
+.adaptive-design-image.catalog.standard img {
+  object-fit: cover;
+}
+
+.adaptive-design-image.catalog.wide {
+  padding: 0.5rem;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.72), transparent 24%),
+    linear-gradient(180deg, #f4ebde 0%, #eee1d1 100%);
+}
+
+.adaptive-design-image.catalog.wide img {
+  object-fit: contain;
+  border-radius: 18px;
+}
+
+.wix-modal-box.media-wide {
+  grid-template-columns: minmax(500px, 1.18fr) minmax(320px, 0.82fr);
+}
+
+.wix-modal-box.media-tall {
+  grid-template-columns: minmax(390px, 0.96fr) minmax(0, 1fr);
+}
+
+.wix-modal-media-frame {
+  align-items: stretch;
+}
+
+.adaptive-design-image.modal {
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.adaptive-design-image.modal img {
+  object-position: center;
+}
+
+.adaptive-design-image.modal.wide img,
+.adaptive-design-image.modal.standard img {
+  object-fit: contain;
+}
+
+.adaptive-design-image.modal.tall img {
+  object-fit: contain;
+}
+
+@media (max-width: 1040px) {
+  .wix-modal-box.media-wide,
+  .wix-modal-box.media-tall {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .adaptive-design-image.catalog.wide {
+    padding: 0.38rem;
+  }
+
+  .adaptive-design-image.catalog.wide img,
+  .adaptive-design-image.modal {
+    border-radius: 14px;
   }
 }

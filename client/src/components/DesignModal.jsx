@@ -1,5 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Icon from "./Icon";
+import AdaptiveDesignImage from "./AdaptiveDesignImage";
 import { createDesignInquiryMessage, createWhatsAppLink, formatCurrency } from "../lib/storefront";
 
 function hasPrice(design) {
@@ -7,6 +8,8 @@ function hasPrice(design) {
 }
 
 export default function DesignModal({ design, onClose, onTrackInquiry }) {
+  const [mediaShape, setMediaShape] = useState("standard");
+
   useEffect(() => {
     if (!design) return undefined;
 
@@ -18,11 +21,15 @@ export default function DesignModal({ design, onClose, onTrackInquiry }) {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [design, onClose]);
 
+  useEffect(() => {
+    setMediaShape("standard");
+  }, [design]);
+
   if (!design) return null;
 
   return (
     <div className="modal-bg show" onClick={(event) => event.target === event.currentTarget && onClose()}>
-      <div className="modal-box wix-modal-box">
+      <div className={`modal-box wix-modal-box media-${mediaShape}`.trim()}>
         <button className="modal-close" type="button" onClick={onClose} aria-label="Close design preview">
           <Icon name="close" />
         </button>
@@ -30,7 +37,12 @@ export default function DesignModal({ design, onClose, onTrackInquiry }) {
         <div className="wix-modal-media">
           {design.image ? (
             <div className="wix-modal-media-frame">
-              <img src={design.image} alt={design.name} className="modal-image-full" />
+              <AdaptiveDesignImage
+                src={design.image}
+                alt={design.name}
+                variant="modal"
+                onShapeChange={setMediaShape}
+              />
             </div>
           ) : (
             <div className="modal-img">Design</div>

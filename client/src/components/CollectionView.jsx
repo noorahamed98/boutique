@@ -1,4 +1,5 @@
 import Icon from "./Icon";
+import AdaptiveDesignImage from "./AdaptiveDesignImage";
 import {
   createDesignInquiryMessage,
   createGeneralInquiryMessage,
@@ -158,7 +159,7 @@ export default function CollectionView({
           filteredDesigns.map((design, index) => (
             <ScrollReveal key={design.id} as="article" className="wix-catalog-card" direction="up" delay={Math.min(index, 8) * 70}>
               <button className="wix-catalog-image" type="button" onClick={() => onOpenDesign(design)}>
-                <img src={designImage(design)} alt={design.name} />
+                <AdaptiveDesignImage src={designImage(design)} alt={design.name} variant="catalog" />
               </button>
 
               <div className={`wix-catalog-price ${hasPrice(design) ? "" : "is-request"}`.trim()}>
