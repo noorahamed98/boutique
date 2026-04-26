@@ -7777,3 +7777,463 @@ body {
     border-radius: 14px;
   }
 }
+
+/* April 26, 2026 mobile responsive refinement pass */
+
+@media (max-width: 860px) {
+  .wix-page-shell,
+  .wix-nav,
+  .home-signature-band,
+  .wix-home-inquire-row,
+  .wix-collection-toolbar-shell,
+  .wix-collection-title-block,
+  .wix-simple-page,
+  .wix-contact-page,
+  .wix-size-title {
+    padding-inline: 0.95rem;
+  }
+
+  .home-signature-band {
+    padding-inline: 0;
+  }
+
+  .home-curated-section,
+  .home-reference-section,
+  .wix-home-collage,
+  .wix-testimonial-section,
+  .wix-story-panel,
+  .wix-home-inquire-row,
+  .wix-about-gallery,
+  .wix-contact-columns,
+  .wix-footer-grid,
+  .wix-stats-band {
+    gap: 1rem;
+  }
+
+  .home-image-card-grid,
+  .home-featured-grid,
+  .wix-home-category-strip,
+  .wix-about-gallery,
+  .wix-stats-band,
+  .wix-footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wix-catalog-grid {
+    gap: 1rem;
+  }
+
+  .wix-catalog-card {
+    border-radius: 20px;
+  }
+
+  .wix-catalog-image {
+    min-height: 250px;
+  }
+
+  .wix-modal-box,
+  .wix-modal-box.media-wide,
+  .wix-modal-box.media-tall {
+    width: min(100vw, 100%);
+    max-width: none;
+    max-height: 100dvh;
+    border-radius: 0;
+  }
+
+  .wix-modal-media {
+    padding: 0.85rem;
+  }
+
+  .wix-modal-media-frame {
+    border-radius: 18px;
+    padding: 0.65rem;
+  }
+
+  .wix-modal-copy {
+    padding: 1rem 0.95rem 1.15rem;
+  }
+
+  .wix-modal-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-bg {
+    padding: 0;
+  }
+
+  .admin-bg.show {
+    align-items: stretch;
+  }
+
+  .admin-box.is-authenticated,
+  .admin-box.is-login,
+  .admin-box {
+    width: 100vw;
+    max-width: none;
+    height: 100dvh;
+    border-radius: 0;
+    border-width: 0;
+  }
+
+  .admin-hd {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    padding: 0.9rem 0.9rem 0.75rem;
+  }
+
+  .admin-hd-copy {
+    max-width: none;
+  }
+
+  .admin-hd-title {
+    font-size: clamp(1.9rem, 8vw, 2.3rem);
+  }
+
+  .admin-hd-sub {
+    max-width: none;
+    font-size: 0.86rem;
+    line-height: 1.32;
+  }
+
+  .admin-hd-actions {
+    gap: 0.45rem;
+  }
+
+  .admin-inner {
+    padding: 0.75rem;
+    overflow: auto;
+  }
+
+  .admin-auth-layout,
+  .admin-studio-grid {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .admin-auth {
+    min-height: auto;
+  }
+
+  .admin-auth-card,
+  .admin-auth-aside {
+    overflow: visible;
+  }
+
+  .admin-auth-card {
+    align-content: start;
+  }
+
+  .admin-auth-feature-grid {
+    grid-template-columns: 1fr;
+    margin-top: 0.25rem;
+  }
+
+  .admin-auth-feature {
+    grid-template-columns: auto 1fr;
+    gap: 0.7rem;
+  }
+
+  .admin-main-panel,
+  .admin-sidebar,
+  .admin-workspace {
+    overflow: visible;
+  }
+
+  .admin-main-panel {
+    gap: 0.75rem;
+  }
+
+  .admin-sidebar {
+    order: 2;
+    gap: 0.75rem;
+    align-content: start;
+  }
+
+  .admin-main-panel {
+    order: 1;
+    grid-template-rows: auto auto;
+  }
+
+  .admin-overview-card,
+  .admin-sidebar-card,
+  .admin-workspace,
+  .admin-auth-card,
+  .admin-auth-aside,
+  .admin-form-card {
+    padding: 0.9rem;
+    border-radius: 18px;
+  }
+
+  .admin-overview-card h2,
+  .admin-panel-heading h3,
+  .admin-auth-title,
+  .admin-auth-aside h2 {
+    font-size: 1.65rem;
+  }
+
+  .admin-overview-meta {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+  }
+
+  .admin-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+
+  .admin-stat-card {
+    padding: 0.78rem;
+    gap: 0.58rem;
+  }
+
+  .admin-stat-card strong {
+    font-size: 1.45rem;
+  }
+
+  .admin-stat-note {
+    font-size: 0.72rem;
+    line-height: 1.2;
+  }
+
+  .admin-tabs {
+    margin-bottom: 0.7rem;
+  }
+
+  .admin-tab {
+    min-height: 38px;
+    font-size: 0.92rem;
+  }
+
+  .admin-form-layout,
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+
+  .img-upload-area {
+    min-height: 148px;
+  }
+
+  .img-upload-preview {
+    min-height: 144px;
+  }
+
+  .preview-img {
+    max-height: 180px;
+  }
+
+  .admin-category-pills {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+  }
+
+  .admin-category-pill {
+    grid-template-columns: 42px 1fr;
+    gap: 0.55rem;
+    padding: 0.6rem;
+    border-radius: 15px;
+  }
+
+  .admin-category-pill-thumb {
+    width: 42px;
+    height: 50px;
+    border-radius: 12px;
+  }
+
+  .manage-list {
+    gap: 0.55rem;
+    padding-right: 0;
+  }
+
+  .manage-item {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+    padding: 0.8rem;
+    border-radius: 18px;
+  }
+
+  .manage-item-main {
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .manage-thumb {
+    width: 62px;
+    height: 62px;
+    border-radius: 14px;
+  }
+
+  .manage-item-topline,
+  .manage-item-meta {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .manage-item-name {
+    font-size: 1.12rem;
+  }
+
+  .manage-item-actions {
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .admin-action-btn {
+    flex: 1;
+    min-width: 0;
+    min-height: 38px;
+    padding: 0.56rem 0.7rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .view {
+    padding-top: 84px;
+  }
+
+  .wix-nav {
+    gap: 0.65rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    padding-inline: 0.8rem;
+  }
+
+  .wix-mobile-menu-panel {
+    gap: 0.85rem;
+    padding: 1rem 0.85rem calc(1rem + env(safe-area-inset-bottom));
+    border-radius: 24px 24px 0 0;
+  }
+
+  .wix-mobile-menu-header h2 {
+    font-size: 1.7rem;
+  }
+
+  .wix-mobile-menu-link {
+    padding: 0.85rem 0.9rem;
+    border-radius: 18px;
+  }
+
+  .wix-mobile-menu-link-title {
+    font-size: 1.22rem;
+  }
+
+  .wix-mobile-menu-link-text {
+    font-size: 0.82rem;
+  }
+
+  .home-hero-copy {
+    padding: 1.2rem 0.9rem 1.1rem;
+  }
+
+  .home-hero-copy h1 {
+    font-size: clamp(2rem, 12vw, 2.55rem);
+    line-height: 0.94;
+  }
+
+  .home-hero-copy p {
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .home-hero-cta,
+  .wix-inquire-btn.inline {
+    width: 100%;
+    max-width: none;
+  }
+
+  .wix-catalog-card > *:not(.wix-catalog-image) {
+    margin-inline: 0.85rem;
+  }
+
+  .wix-catalog-image {
+    min-height: 220px;
+  }
+
+  .wix-modal-media {
+    padding: 0.7rem;
+  }
+
+  .wix-modal-copy {
+    padding: 0.9rem 0.85rem 1rem;
+  }
+
+  .admin-hd {
+    padding: 0.8rem 0.8rem 0.68rem;
+  }
+
+  .admin-hd-title {
+    font-size: 1.72rem;
+  }
+
+  .admin-hd-sub {
+    font-size: 0.8rem;
+  }
+
+  .admin-inner {
+    padding: 0.65rem;
+  }
+
+  .admin-overview-card,
+  .admin-sidebar-card,
+  .admin-workspace,
+  .admin-auth-card,
+  .admin-auth-aside,
+  .admin-form-card {
+    padding: 0.82rem;
+    border-radius: 16px;
+  }
+
+  .admin-stats,
+  .admin-category-pills {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-overview-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-tabs {
+    gap: 0.35rem;
+    padding: 0.14rem;
+  }
+
+  .admin-tab {
+    min-height: 36px;
+    font-size: 0.84rem;
+  }
+
+  .admin-search {
+    margin-bottom: 0.55rem;
+  }
+
+  .search-box {
+    min-height: 40px;
+    padding: 0 0.72rem;
+  }
+
+  .manage-thumb {
+    width: 56px;
+    height: 56px;
+  }
+
+  .manage-item-name {
+    font-size: 1rem;
+  }
+
+  .manage-item-badge,
+  .manage-item-cat {
+    min-height: 24px;
+    font-size: 0.66rem;
+  }
+
+  .admin-action-btn {
+    min-height: 36px;
+    font-size: 0.82rem;
+  }
+
+  .btn-row {
+    flex-direction: column;
+  }
+}
