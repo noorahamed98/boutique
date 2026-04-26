@@ -44,9 +44,9 @@ Sneha's Boutique storefront with:
 
 - Hero is a split Wix-style layout with:
   - left monogram hero image
-  - right serif headline `HANDCRAFTED ELEGANCE FOR THE MODERN SOUL.`
+  - right custom-tailoring hero copy `Custom outfits` / `made for you`
   - supporting copy
-  - `Shop the Collection` CTA
+  - `Explore Designs` CTA
 - The user-provided/reference-based sections are rendered as full image sections with invisible hotspot overlays:
   - `Our Signature Collections`
   - `New Arrivals`

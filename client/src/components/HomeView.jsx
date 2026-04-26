@@ -125,24 +125,20 @@ export default function HomeView({
         </ScrollReveal>
 
         <ScrollReveal className="home-hero-copy" direction="right" delay={100}>
-          <span className="wix-eyebrow">CURATED COLLECTION</span>
-          <h1>
-            <span>HANDCRAF</span>
-            <span>TED</span>
-            <span>ELEGANCE</span>
-            <span>FOR THE</span>
-            <span>MODERN</span>
-            <span>SOUL</span>
+          <span className="wix-eyebrow">CUSTOM TAILORING</span>
+          <h1 className="home-hero-headline">
+            <span>Custom outfits</span>
+            <em>made for you</em>
           </h1>
           <p>
-            We specialize in premium fabrics and bespoke apparel, blending artisanal craftsmanship
-            with contemporary design for a truly unique boutique experience.
+            A passion-driven boutique creating custom-made outfits with care and attention to detail.
+            Every piece is designed to give you a perfect fit and make you feel confident.
           </p>
           <button className="wix-inquire-btn inline home-hero-cta" type="button" onClick={() => onNavigate("collection")}>
             <>
-              Shop the
+              Explore
               <br />
-              Collection
+              Designs
             </>
           </button>
         </ScrollReveal>

@@ -4511,6 +4511,24 @@ body {
   max-width: 6.2ch;
 }
 
+.home-hero-copy .home-hero-headline {
+  max-width: 8.5ch;
+}
+
+.home-hero-headline span,
+.home-hero-headline em {
+  display: block;
+}
+
+.home-hero-headline em {
+  margin-top: 0.14em;
+  color: rgba(153, 104, 93, 0.9);
+  font-size: 0.72em;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 0.9;
+}
+
 .wix-contact-page h1 {
   max-width: none;
 }
@@ -4530,7 +4548,7 @@ body {
   max-width: 430px;
   margin-top: 1.45rem;
   font-size: 0.99rem;
-  line-height: 1.45;
+  line-height: 1.55;
 }
 
 .home-hero-cta {
@@ -7083,6 +7101,15 @@ body {
     line-height: 0.92;
   }
 
+  .home-hero-copy .home-hero-headline {
+    max-width: 9.5ch;
+  }
+
+  .home-hero-headline em {
+    margin-top: 0.16em;
+    font-size: 0.68em;
+  }
+
   .home-hero-copy p {
     max-width: none;
   }
@@ -7158,6 +7185,15 @@ body {
 
   .home-hero-copy h1 {
     font-size: clamp(2.35rem, 12vw, 2.9rem);
+  }
+
+  .home-hero-copy .home-hero-headline {
+    max-width: 10ch;
+  }
+
+  .home-hero-headline em {
+    margin-top: 0.18em;
+    font-size: 0.66em;
   }
 
   .home-hero-copy p {
