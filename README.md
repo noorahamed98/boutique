@@ -151,40 +151,6 @@ If those Cloudflare repository secrets or variables are missing, the workflow no
 
 When you push to `main`, Cloudflare Pages will create the production deployment. Pushes to other branches will create Pages preview deployments.
 
-## Deploy Frontend On Netlify
-
-Netlify is a good free option for the React frontend, but it should stay a split deployment:
-
-- Netlify serves `client/dist`
-- Render keeps serving the Express + PostgreSQL backend
-
-This repo now includes [netlify.toml](./netlify.toml) with:
-
-- build command: `npm run build`
-- publish directory: `client/dist`
-- SPA fallback: `/* -> /index.html`
-- API proxy: `/api/* -> https://snehas-boutique.onrender.com/api/:splat`
-
-That proxy keeps the frontend using relative `/api` calls, so the React app does not need code changes for Netlify.
-
-To deploy on Netlify:
-
-1. In Netlify, choose `Add new project` -> `Import an existing project`.
-2. Connect the GitHub repo `noorahamed98/boutique`.
-3. Keep the detected settings from `netlify.toml`.
-4. Deploy the site.
-
-After the first deploy, the default production URL will be something like `https://<site-name>.netlify.app`.
-
-Important backend note:
-
-- The backend already allows preview/production subdomains ending in `.netlify.app`.
-- If you later attach a custom frontend domain, add that exact domain to the backend host with `FRONTEND_URL=https://your-custom-domain`.
-
-Optional CLI path:
-
-- Netlify CLI supports temporary anonymous deploys with `netlify deploy --allow-anonymous`, according to Netlify's official CLI docs, but Git-based deploys are the better long-term setup for this repo.
-
 ## API Endpoints
 
 Public:

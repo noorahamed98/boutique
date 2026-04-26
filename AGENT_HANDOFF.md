@@ -171,11 +171,6 @@ Sneha's Boutique storefront with:
 ## Deployment / CI notes
 
 - Frontend now supports `VITE_API_BASE_URL` for split hosting, while still defaulting to relative `/api` for the combined Express-served setup.
-- Repo now also includes `netlify.toml` for a Netlify frontend deploy:
-  - build command: `npm run build`
-  - publish directory: `client/dist`
-  - SPA fallback: `/* -> /index.html`
-  - API proxy: `/api/* -> https://snehas-boutique.onrender.com/api/:splat`
 - Cloudflare Pages GitHub Actions workflow now lives at:
   - `.github/workflows/deploy-cloudflare-pages.yml`
 - The current Cloudflare path is:
@@ -186,9 +181,6 @@ Sneha's Boutique storefront with:
   - `FRONTEND_URL` for the primary origin
   - `FRONTEND_URLS` for extra exact origins
   - `FRONTEND_URL_SUFFIXES` for preview-domain suffixes such as `.pages.dev`
-- Backend now also ships with default preview-host suffix support for:
-  - `.pages.dev`
-  - `.netlify.app`
 - Backend default allowlist now also includes the active local/dev storefront origins:
   - `http://localhost:4182`
   - `http://127.0.0.1:4182`
