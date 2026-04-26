@@ -5694,6 +5694,51 @@ body {
   overflow: auto;
 }
 
+@media (min-width: 821px) {
+  .admin-bg {
+    padding: 0;
+  }
+
+  .admin-bg.show {
+    align-items: stretch;
+  }
+
+  .admin-box {
+    width: 100vw;
+    max-width: none;
+    height: 100dvh;
+    border-radius: 0;
+    border-width: 0;
+  }
+
+  .admin-hd {
+    padding: 1rem 1.25rem 0.9rem;
+  }
+
+  .admin-inner {
+    padding: 0.85rem 0.95rem 0.95rem;
+  }
+
+  .admin-auth-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(380px, 0.92fr);
+    gap: 0.8rem;
+  }
+
+  .admin-studio-grid {
+    grid-template-columns: minmax(260px, 300px) minmax(0, 1fr);
+    gap: 0.8rem;
+  }
+
+  .admin-overview-card,
+  .admin-sidebar-card,
+  .admin-workspace,
+  .admin-auth-aside,
+  .admin-auth-card,
+  .admin-form-card {
+    border-radius: 20px;
+  }
+}
+
 @media (max-height: 820px) {
   .admin-bg {
     padding: 0.75rem;

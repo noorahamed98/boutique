@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Icon from "./Icon";
 import { DEFAULT_BADGES } from "../lib/storefront";
 
@@ -90,6 +90,21 @@ export default function AdminModal({
   const coveragePercent = categoryStats.length
     ? Math.round((stockedCategories.length / categoryStats.length) * 100)
     : 0;
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+    };
+  }, [isOpen]);
 
   const latestDesign = recentDesigns[0] || null;
   const studioMetrics = [
