@@ -1665,6 +1665,7 @@ a {
 
 .admin-sidebar {
   overflow: auto;
+  align-content: start;
 }
 
 .admin-main-panel {
@@ -5796,7 +5797,7 @@ body {
     gap: 0.55rem;
   }
 
-  .admin-studio-shell.is-authenticated .admin-sidebar-card {
+  .admin-studio-shell.is-authenticated .admin-sidebar .admin-sidebar-card:last-child {
     display: none;
   }
 
@@ -5856,147 +5857,178 @@ body {
   }
 
   .admin-hd {
-    padding: 0.72rem 0.95rem 0.62rem;
+    padding: 0.58rem 0.9rem 0.52rem;
   }
 
   .admin-kicker {
-    margin-bottom: 0.22rem;
-    font-size: 0.64rem;
-    letter-spacing: 0.14em;
+    margin-bottom: 0.16rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
   }
 
   .admin-hd-title {
-    font-size: 2rem;
+    font-size: 1.82rem;
   }
 
   .admin-hd-sub {
     display: -webkit-box;
     max-width: 48ch;
-    margin-top: 0.18rem;
+    margin-top: 0.12rem;
     overflow: hidden;
-    font-size: 0.82rem;
-    line-height: 1.28;
+    font-size: 0.78rem;
+    line-height: 1.2;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
   }
 
   .admin-inner {
-    padding: 0.55rem;
+    padding: 0.5rem;
   }
 
   .admin-studio-grid {
     grid-template-columns: minmax(228px, 262px) minmax(0, 1fr);
-    gap: 0.55rem;
+    gap: 0.5rem;
   }
 
   .admin-overview-card,
   .admin-workspace,
   .admin-form-card,
   .admin-stat-card {
-    padding: 0.78rem;
+    padding: 0.72rem;
   }
 
   .admin-overview-card h2,
   .admin-panel-heading h3 {
-    font-size: 1.48rem;
+    font-size: 1.36rem;
   }
 
   .admin-overview-card p {
-    margin-top: 0.28rem;
-    font-size: 0.82rem;
-    line-height: 1.35;
-    display: -webkit-box;
-    overflow: hidden;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-  }
-
-  .admin-coverage {
-    margin-top: 0.55rem;
-    padding: 0.65rem 0.72rem;
-  }
-
-  .admin-coverage strong {
-    font-size: 2rem;
-  }
-
-  .admin-coverage span {
-    font-size: 0.82rem;
-    line-height: 1.3;
-  }
-
-  .admin-overview-meta {
-    gap: 0.5rem;
-    margin-top: 0.55rem;
-  }
-
-  .admin-overview-meta div {
-    padding: 0.62rem 0.68rem;
-  }
-
-  .admin-overview-meta strong {
-    font-size: 0.9rem;
-  }
-
-  .admin-stats {
-    gap: 0.45rem;
-  }
-
-  .admin-stat-card {
-    gap: 0.55rem;
-  }
-
-  .admin-stat-icon {
-    width: 34px;
-    height: 34px;
-    border-radius: 12px;
-  }
-
-  .admin-stat-label {
-    font-size: 0.66rem;
-  }
-
-  .admin-stat-card strong {
-    margin-top: 0.18rem;
-    font-size: 1.45rem;
-  }
-
-  .admin-stat-note {
-    margin-top: 0.18rem;
-    font-size: 0.72rem;
-    line-height: 1.2;
+    margin-top: 0.2rem;
+    font-size: 0.78rem;
+    line-height: 1.24;
     display: -webkit-box;
     overflow: hidden;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
   }
 
-  .admin-tabs {
-    margin-bottom: 0.55rem;
-    padding: 0.18rem;
+  .admin-coverage {
+    margin-top: 0.42rem;
+    padding: 0.55rem 0.62rem;
   }
 
-  .admin-tab {
-    min-height: 36px;
-    font-size: 0.95rem;
+  .admin-coverage strong {
+    font-size: 1.76rem;
   }
 
-  .admin-panel-heading {
-    margin-bottom: 0.48rem;
+  .admin-coverage span {
+    font-size: 0.76rem;
+    line-height: 1.22;
   }
 
-  .admin-panel-heading p {
-    margin-top: 0.18rem;
+  .admin-overview-meta {
+    gap: 0.4rem;
+    margin-top: 0.42rem;
+  }
+
+  .admin-overview-meta div {
+    padding: 0.5rem 0.56rem;
+  }
+
+  .admin-overview-meta span {
+    font-size: 0.64rem;
+  }
+
+  .admin-overview-meta strong {
     font-size: 0.82rem;
-    line-height: 1.3;
+  }
+
+  .admin-stats {
+    gap: 0.38rem;
+  }
+
+  .admin-stat-card {
+    gap: 0.48rem;
+  }
+
+  .admin-stat-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+  }
+
+  .admin-stat-label {
+    font-size: 0.62rem;
+  }
+
+  .admin-stat-card strong {
+    margin-top: 0.12rem;
+    font-size: 1.28rem;
+  }
+
+  .admin-stat-note {
+    margin-top: 0.12rem;
+    font-size: 0.67rem;
+    line-height: 1.12;
     display: -webkit-box;
     overflow: hidden;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
   }
 
+  .admin-tabs {
+    margin-bottom: 0.42rem;
+    padding: 0.16rem;
+  }
+
+  .admin-tab {
+    min-height: 34px;
+    font-size: 0.88rem;
+  }
+
+  .admin-panel-heading {
+    margin-bottom: 0.35rem;
+  }
+
+  .admin-panel-heading p {
+    margin-top: 0.14rem;
+    font-size: 0.76rem;
+    line-height: 1.18;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  .admin-section-heading.compact h3 {
+    margin-top: 0.22rem;
+    font-size: 1.2rem;
+  }
+
+  .admin-category-pills,
+  .admin-recent-list {
+    gap: 0.42rem;
+    margin-top: 0.48rem;
+  }
+
+  .admin-category-pill {
+    gap: 0.52rem;
+    padding: 0.5rem 0.58rem;
+    border-radius: 14px;
+  }
+
+  .admin-category-pill-thumb {
+    width: 34px;
+    height: 34px;
+  }
+
+  .admin-category-pill span,
+  .admin-recent-item span {
+    font-size: 0.72rem;
+  }
+
   .form-row {
-    gap: 0.72rem;
+    gap: 0.6rem;
   }
 
   .form-group {
@@ -6045,7 +6077,7 @@ body {
   }
 
   .admin-search {
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.48rem;
   }
 
   .search-box {
@@ -6055,7 +6087,7 @@ body {
   }
 
   .manage-list {
-    gap: 0.55rem;
+    gap: 0.45rem;
   }
 
   .manage-item {
@@ -6090,7 +6122,7 @@ body {
   }
 
   .manage-item-date {
-    font-size: 0.72rem;
+    font-size: 0.68rem;
   }
 
   .manage-item-actions {
@@ -6101,7 +6133,7 @@ body {
     min-height: 36px;
     min-width: 76px;
     padding: 0.5rem 0.68rem;
-    font-size: 0.9rem;
+    font-size: 0.84rem;
   }
 }
 
