@@ -4921,6 +4921,64 @@ body {
   padding-bottom: 2.8rem;
 }
 
+.home-handpicked-section {
+  padding-top: 1rem;
+  padding-bottom: 1.8rem;
+}
+
+.home-handpicked-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(320px, 0.78fr);
+  gap: 2rem;
+  align-items: center;
+  padding: 1.5rem;
+  background: #f5f0e6;
+}
+
+.home-handpicked-gallery {
+  min-width: 0;
+}
+
+.home-handpicked-gallery .auto-scroll-gallery-card {
+  width: clamp(280px, 30vw, 360px);
+  padding: 0.8rem;
+  border-radius: 30px;
+}
+
+.home-handpicked-gallery .auto-scroll-gallery-frame {
+  aspect-ratio: 4 / 5.1;
+  border-radius: 24px;
+}
+
+.home-handpicked-copy {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+}
+
+.home-handpicked-copy h2 {
+  color: var(--wix-text);
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 4.8vw, 4.3rem);
+  font-weight: 700;
+  line-height: 0.96;
+}
+
+.home-handpicked-copy p {
+  max-width: 420px;
+  margin-top: 1rem;
+  color: var(--wix-muted);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.home-handpicked-cta {
+  margin-top: 1.5rem;
+  min-height: 46px;
+  padding-inline: 1.2rem;
+  border-radius: 999px;
+}
+
 .wix-collection-title-block {
   padding-top: 2.8rem;
   padding-bottom: 0.4rem;
@@ -7062,6 +7120,30 @@ body {
     gap: 1rem;
   }
 
+  .home-handpicked-layout {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding: 1rem;
+  }
+
+  .home-handpicked-copy {
+    justify-items: start;
+  }
+
+  .home-handpicked-copy h2 {
+    font-size: clamp(2.4rem, 8vw, 3rem);
+  }
+
+  .home-handpicked-copy p {
+    max-width: none;
+    margin-top: 0.75rem;
+    font-size: 0.92rem;
+  }
+
+  .home-handpicked-cta {
+    margin-top: 1rem;
+  }
+
   .wix-collection-left,
   .wix-collection-right {
     width: 100%;
@@ -7185,6 +7267,33 @@ body {
 
   .home-hero-copy h1 {
     font-size: clamp(2.35rem, 12vw, 2.9rem);
+  }
+
+  .home-handpicked-layout {
+    padding: 0.85rem;
+  }
+
+  .home-handpicked-gallery .auto-scroll-gallery-card {
+    width: min(76vw, 270px);
+    padding: 0.55rem;
+    border-radius: 20px;
+  }
+
+  .home-handpicked-gallery .auto-scroll-gallery-frame {
+    border-radius: 16px;
+  }
+
+  .home-handpicked-copy h2 {
+    font-size: 2.2rem;
+  }
+
+  .home-handpicked-copy p {
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+
+  .home-handpicked-cta {
+    width: 100%;
   }
 
   .home-hero-copy .home-hero-headline {

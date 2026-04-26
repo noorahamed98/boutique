@@ -5,7 +5,6 @@ import {
 import ScrollReveal from "./ScrollReveal";
 import AutoScrollGallery from "./AutoScrollGallery";
 
-const HANDPICKED_REFERENCE_IMAGE = "/assets/home-references/handpicked-hd.png";
 const HERO_REFERENCE_IMAGE = "/assets/nav-logo.png";
 
 const TESTIMONIALS = [
@@ -64,28 +63,12 @@ const ARRIVAL_CARDS = [
   }
 ];
 
-const HANDPICKED_HOTSPOT = {
-  left: 52.7,
-  top: 59.8,
-  width: 17.4,
-  height: 12.2
-};
-
 function featureInquiryMessage(name) {
   return [
     "Hai Sneha's Boutique,",
     `I am interested in "${name}" from the home page.`,
     "Please share pricing, availability, and customization options."
   ].join(" ");
-}
-
-function hotspotStyle({ left, top, width, height }) {
-  return {
-    left: `${left}%`,
-    top: `${top}%`,
-    width: `${width}%`,
-    height: `${height}%`
-  };
 }
 
 export default function HomeView({
@@ -102,6 +85,9 @@ export default function HomeView({
   const collageDesigns = (
     inspirationDesigns.length ? inspirationDesigns : collectionHighlights.map((item) => item.design).filter(Boolean)
   ).slice(0, 6);
+  const handpickedDesigns = collageDesigns.length
+    ? collageDesigns
+    : collectionHighlights.map((item) => item.design).filter(Boolean).slice(0, 6);
   const handleFavoritesClick = () => {
     if (favoriteCount > 0) {
       onOpenFavorites();
@@ -210,23 +196,24 @@ export default function HomeView({
         </div>
       </section>
 
-      <section className="wix-page-shell home-reference-section home-reference-section-light">
-        <div className="home-reference-scroller">
-          <ScrollReveal className="home-reference-display handpicked" direction="up">
-            <img src={HANDPICKED_REFERENCE_IMAGE} alt="Handpicked section" />
+      <section className="wix-page-shell home-reference-section home-reference-section-light home-handpicked-section">
+        <ScrollReveal className="home-handpicked-layout" direction="up">
+          <div className="home-handpicked-gallery">
+            <AutoScrollGallery designs={handpickedDesigns} ariaLabel="Handpicked boutique designs" />
+          </div>
 
-            <div className="home-hotspot-layer">
-              <button
-                className="home-image-hotspot"
-                type="button"
-                style={hotspotStyle(HANDPICKED_HOTSPOT)}
-                aria-label="View all favorites"
-                title="View all favorites"
-                onClick={handleFavoritesClick}
-              />
-            </div>
-          </ScrollReveal>
-        </div>
+          <div className="home-handpicked-copy">
+            <h2>Handpicked</h2>
+            <p>
+              We curate our most-loved pieces from our collection of handcrafted fabrics and bespoke designs.
+              Each item is selected for its unique texture, timeless elegance, and artisanal quality, ensuring
+              you find the perfect piece for your wardrobe.
+            </p>
+            <button className="wix-secondary-btn home-handpicked-cta" type="button" onClick={handleFavoritesClick}>
+              View All Favorites
+            </button>
+          </div>
+        </ScrollReveal>
       </section>
 
       <section className="wix-page-shell wix-testimonial-section">

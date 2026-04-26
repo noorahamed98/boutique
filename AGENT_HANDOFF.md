@@ -51,6 +51,9 @@ Sneha's Boutique storefront with:
   - `Our Signature Collections`
   - `New Arrivals`
   - `Handpicked`
+- The old static `Handpicked` reference image was replaced with a split section:
+  - left side uses the uploaded-design `AutoScrollGallery`
+  - right side keeps the `Handpicked` title, supporting copy, and `View All Favorites` CTA
 - `Our Signature Collections` and `New Arrivals` were then rebuilt again from the composite references into individual image cards so each image can animate separately instead of the whole section appearing at once.
 - Testimonial section includes the names:
   - `ELENA R.`
