@@ -107,6 +107,7 @@ Sneha's Boutique storefront with:
 - Admin design submit now reads the live form field values at submit time in addition to React state, which fixes the false `Design name is required.` error when the visible input and submitted state drift out of sync.
 - Admin submit is now hardened a second time: the studio form passes an explicit snapshot of the live input refs into `handleDesignSubmit()`, so mixed HMR/dev-server state cannot submit an empty `designName` while the field still looks filled in.
 - Root cause of the persistent live 400 was finally identified in `client/src/api/designsApi.js`: the shared `request()` helper built a `headers` object with `Content-Type: application/json`, but then overwrote it with `...options`, dropping the content type on authenticated POST/PUT requests. Reordering to `{ ...options, headers }` preserves JSON parsing on the server.
+- Branding polish pass: the React app now uses a more consistent brand lockup in the navbar/footer/size-chart/admin surfaces, swaps the home hero from the cramped square monogram to the wider wordmark treatment, and adds the monogram as the browser favicon/apple-touch icon via `client/index.html`.
 
 ## Real metrics now in use
 

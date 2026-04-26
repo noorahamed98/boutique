@@ -70,8 +70,13 @@ export default function Navbar({ currentPage, onNavigate, onTrackInquiry }) {
       <nav className="wix-nav" id="mainNav">
         <button className="wix-brand" type="button" onClick={() => onNavigate("home")} aria-label="Go to home">
           <span className="logo-container">
-            <img src="/assets/home-references/brand-monogram.png" alt="" />
-            <span className="brand-name">Sneha&apos;s Boutique</span>
+            <span className="brand-mark-frame">
+              <img src="/assets/home-references/brand-monogram.png" alt="" />
+            </span>
+            <span className="brand-copy">
+              <span className="brand-name">Sneha&apos;s Boutique</span>
+              <span className="brand-subtitle">Fashion Studio</span>
+            </span>
           </span>
         </button>
 

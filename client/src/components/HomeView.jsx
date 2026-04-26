@@ -5,7 +5,7 @@ import {
 import ScrollReveal from "./ScrollReveal";
 
 const HANDPICKED_REFERENCE_IMAGE = "/assets/home-references/handpicked-hd.png";
-const HERO_REFERENCE_IMAGE = "/assets/home-references/brand-monogram.png";
+const HERO_REFERENCE_IMAGE = "/assets/nav-logo.png";
 
 const TESTIMONIALS = [
   {
@@ -115,12 +115,14 @@ export default function HomeView({
   return (
     <>
       <section className="wix-page-shell home-wix-hero">
-        <ScrollReveal className="home-hero-media home-hero-media-monogram" direction="left">
-          <img
-            src={HERO_REFERENCE_IMAGE}
-            alt={heroDesign?.name || "Sneha's Boutique monogram"}
-            className="home-hero-monogram-image"
-          />
+        <ScrollReveal className="home-hero-media home-hero-media-brand" direction="left">
+          <div className="home-hero-brand-plate">
+            <img
+              src={HERO_REFERENCE_IMAGE}
+              alt="Sneha's Boutique Fashion Studio logo"
+              className="home-hero-brand-image"
+            />
+          </div>
         </ScrollReveal>
 
         <ScrollReveal className="home-hero-copy" direction="right" delay={100}>

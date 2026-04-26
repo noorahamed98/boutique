@@ -31,7 +31,9 @@ export default function SizesView({ onTrackInquiry }) {
     <section className="size-chart-display wix-page-shell">
       <ScrollReveal className="size-chart-sheet" direction="up">
         <header className="size-chart-sheet-header">
-          <img src="/assets/home-references/brand-monogram.png" alt="" aria-hidden="true" />
+          <div className="size-chart-brand-badge" aria-hidden="true">
+            <img src="/assets/home-references/brand-monogram.png" alt="" />
+          </div>
           <h1>SNEHA&apos;S BOUTIQUE</h1>
           <p>
             <span aria-hidden="true" />

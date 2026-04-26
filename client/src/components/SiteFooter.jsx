@@ -20,8 +20,15 @@ export default function SiteFooter({ designCount, imageCount, whatsappInquiryCou
 
       <section className="wix-page-shell wix-footer-grid">
         <div className="wix-footer-brand">
-          <img src="/assets/home-references/brand-monogram.png" alt="Sneha's Boutique logo" />
-          <h4>SNEHA&apos;S BOUTIQUE</h4>
+          <div className="wix-footer-brand-lockup">
+            <span className="brand-mark-frame footer-brand-mark">
+              <img src="/assets/home-references/brand-monogram.png" alt="Sneha's Boutique logo" />
+            </span>
+            <div className="wix-footer-brand-copy">
+              <h4>SNEHA&apos;S BOUTIQUE</h4>
+              <span>Fashion Studio</span>
+            </div>
+          </div>
           <p>ELEVATING HANDCRAFTED ELEGANCE THROUGH CURATED FABRICS AND BESPOKE CRAFTSMANSHIP.</p>
         </div>
 
