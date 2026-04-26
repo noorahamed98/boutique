@@ -10,8 +10,8 @@ async function request(path, options = {}) {
   }
 
   const response = await fetch(getApiUrl(path), {
-    headers,
-    ...options
+    ...options,
+    headers
   });
 
   const text = await response.text();
