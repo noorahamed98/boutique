@@ -1,11 +1,8 @@
 import ScrollReveal from "./ScrollReveal";
-
-function designImage(design) {
-  return design?.image || "/assets/boutique-logo.jpg";
-}
+import AutoScrollGallery from "./AutoScrollGallery";
 
 export default function AboutView({ heroDesign, galleryDesigns }) {
-  const previewImages = (galleryDesigns || []).slice(0, 3);
+  const previewImages = (galleryDesigns || []).slice(0, 6);
 
   return (
     <>
@@ -40,22 +37,12 @@ export default function AboutView({ heroDesign, galleryDesigns }) {
       </section>
 
       <section className="wix-page-shell wix-home-collage about-collage">
-        {(previewImages.length ? previewImages : [heroDesign]).filter(Boolean).map((design, index) => (
-          <ScrollReveal
-            key={design?.id || index}
-            className={`wix-home-collage-tile about-collage-tile tile-${index + 1}`}
-            direction={index === 1 ? "up" : index === 0 ? "left" : "right"}
-            delay={index * 120}
-          >
-            <div className="about-collage-frame">
-              <img
-                src={designImage(design)}
-                alt={design?.name || "Sneha's Boutique gallery"}
-                className="about-collage-image"
-              />
-            </div>
-          </ScrollReveal>
-        ))}
+        <ScrollReveal direction="up">
+          <AutoScrollGallery
+            designs={(previewImages.length ? previewImages : [heroDesign]).filter(Boolean)}
+            ariaLabel="Boutique story gallery"
+          />
+        </ScrollReveal>
       </section>
     </>
   );

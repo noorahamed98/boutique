@@ -3,6 +3,7 @@ import {
   createWhatsAppLink
 } from "../lib/storefront";
 import ScrollReveal from "./ScrollReveal";
+import AutoScrollGallery from "./AutoScrollGallery";
 
 const HANDPICKED_REFERENCE_IMAGE = "/assets/home-references/handpicked-hd.png";
 const HERO_REFERENCE_IMAGE = "/assets/nav-logo.png";
@@ -70,10 +71,6 @@ const HANDPICKED_HOTSPOT = {
   height: 12.2
 };
 
-function designImage(design, fallback = "/assets/boutique-logo.jpg") {
-  return design?.image || fallback;
-}
-
 function featureInquiryMessage(name) {
   return [
     "Hai Sneha's Boutique,",
@@ -102,7 +99,9 @@ export default function HomeView({
   storyDesign,
   inspirationDesigns
 }) {
-  const collageDesigns = (inspirationDesigns.length ? inspirationDesigns : collectionHighlights.map((item) => item.design).filter(Boolean)).slice(0, 3);
+  const collageDesigns = (
+    inspirationDesigns.length ? inspirationDesigns : collectionHighlights.map((item) => item.design).filter(Boolean)
+  ).slice(0, 6);
   const handleFavoritesClick = () => {
     if (favoriteCount > 0) {
       onOpenFavorites();
@@ -262,16 +261,12 @@ export default function HomeView({
       </section>
 
       <section className="wix-page-shell wix-home-collage">
-        {collageDesigns.map((design, index) => (
-          <ScrollReveal
-            key={design.id || index}
-            className={`wix-home-collage-tile tile-${index + 1}`}
-            direction={index === 1 ? "up" : index === 0 ? "left" : "right"}
-            delay={index * 120}
-          >
-            <img src={designImage(design || storyDesign)} alt={design?.name || "Sneha's Boutique gallery"} />
-          </ScrollReveal>
-        ))}
+        <ScrollReveal direction="up">
+          <AutoScrollGallery
+            designs={collageDesigns.length ? collageDesigns : [storyDesign].filter(Boolean)}
+            ariaLabel="Recently uploaded boutique designs"
+          />
+        </ScrollReveal>
       </section>
 
       <section className="wix-page-shell wix-home-inquire-row">

@@ -110,6 +110,7 @@ Sneha's Boutique storefront with:
 - Branding polish pass: the React app now uses a more consistent brand lockup in the navbar/footer/size-chart/admin surfaces, swaps the home hero from the cramped square monogram to the wider wordmark treatment, and adds the monogram as the browser favicon/apple-touch icon via `client/index.html`.
 - The home hero logo treatment was then resized again to match the user's reference more closely: the uploaded wide logo now sits much larger inside the left hero panel with tighter inset spacing, instead of appearing as a small floating card in a large empty area.
 - Collection/about/admin image-fit pass: the design modal now shows uploaded images in a contain-style framed viewer so wide collage uploads no longer crop from four looks down to two; the About page collage tiles now frame and contain full uploaded images instead of clipping them; and the admin "Storefront categories" cards now render image thumbnails for all four categories using category-specific reference art or the newest category image.
+- Home/About gallery motion pass: the static uploaded-image collage sections on the Home and About pages were replaced with a shared `AutoScrollGallery` marquee component that loops the admin-uploaded images horizontally at a gentle medium pace, pauses on hover/focus, and respects reduced-motion preferences.
 
 ## Real metrics now in use
 
