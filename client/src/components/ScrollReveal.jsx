@@ -17,6 +17,14 @@ export default function ScrollReveal({
     const element = elementRef.current;
     if (!element) return undefined;
 
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+    const rect = element.getBoundingClientRect();
+
+    // Make above-the-fold content visible immediately so first-screen mobile content never feels blank.
+    if (rect.top < viewportHeight * 0.95 && rect.bottom > 0) {
+      setIsVisible(true);
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

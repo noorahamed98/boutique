@@ -372,6 +372,7 @@ export default function App() {
 
   function handleDesignFormChange(field, value) {
     setDesignForm((previous) => ({ ...previous, [field]: value }));
+    setFormError("");
   }
 
   function handleImageSelected(file) {
@@ -391,6 +392,9 @@ export default function App() {
     reader.onload = (event) => {
       setDesignForm((previous) => ({ ...previous, image: String(event.target?.result || "") }));
       setFormError("");
+    };
+    reader.onerror = () => {
+      setFormError("We couldn't read that image. Please try a different file.");
     };
     reader.readAsDataURL(file);
   }

@@ -41,7 +41,7 @@ const CATEGORY_LOOKUP = new Map([
 ]);
 
 export const WHATSAPP_GREETING_TEMPLATE = [
-  "Namaste! Welcome to Sneha's Boutique.",
+  "Hai! Welcome to Sneha's Boutique.",
   "Thank you for messaging us.",
   "Please share the design name or screenshot, your size or measurements, required category, and delivery date.",
   "We will guide you with availability, pricing, and customization options."
@@ -123,7 +123,7 @@ export function trackWhatsAppInquiry() {
 
 export function createGeneralInquiryMessage() {
   return [
-    "Namaste Sneha's Boutique,",
+    "Hai Sneha's Boutique,",
     "I came from the website and would like to explore your collection.",
     "Please guide me with the available designs, pricing, and customization options."
   ].join(" ");
@@ -137,7 +137,7 @@ export function createDesignInquiryMessage(design) {
   }
 
   return [
-    "Namaste Sneha's Boutique,",
+    "Hai Sneha's Boutique,",
     "I am interested in this design from the website.",
     ...details,
     "Please share size help, delivery timeline, and customization details."

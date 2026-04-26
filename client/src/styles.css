@@ -1614,6 +1614,10 @@ a {
 
 .img-upload-area.has-image {
   border-style: solid;
+  align-items: stretch;
+  padding: 1rem 1rem 3.85rem;
+  background:
+    linear-gradient(180deg, rgba(250, 247, 243, 0.96), rgba(244, 238, 231, 0.96));
 }
 
 .upload-icon {
@@ -1633,16 +1637,40 @@ a {
   font-size: 0.86rem;
 }
 
+.img-upload-preview {
+  width: 100%;
+  min-height: 250px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: calc(var(--radius) - 4px);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(249, 245, 239, 0.98));
+}
+
 .preview-img {
   width: 100%;
-  height: 280px;
-  object-fit: cover;
+  max-height: 320px;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+}
+
+.img-upload-note {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0.9rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-align: left;
 }
 
 .remove-image {
   position: absolute;
   right: 0.75rem;
-  bottom: 0.75rem;
+  top: 0.75rem;
   min-height: 38px;
   display: inline-flex;
   align-items: center;
@@ -4886,6 +4914,23 @@ body {
   object-position: left center;
 }
 
+.home-hero-media-monogram {
+  display: grid;
+  place-items: center;
+  padding: 2.25rem;
+  background:
+    radial-gradient(circle at 25% 20%, rgba(255, 255, 255, 0.8), transparent 26%),
+    linear-gradient(180deg, #f3e7d9 0%, #eadbca 100%);
+}
+
+.home-hero-media-monogram img.home-hero-monogram-image {
+  width: min(100%, 320px);
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  filter: drop-shadow(0 18px 28px rgba(73, 52, 41, 0.12));
+}
+
 .home-hero-copy {
   min-width: 0;
   overflow: hidden;
@@ -5796,5 +5841,349 @@ body {
 
   .home-image-card-button {
     gap: 0.85rem;
+  }
+}
+
+.wix-mobile-menu-toggle,
+.wix-mobile-menu-overlay,
+.wix-mobile-quickstart,
+.wix-mobile-bottom-nav {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .view {
+    padding-top: 96px;
+    padding-bottom: 0;
+  }
+
+  .home-wix-hero {
+    grid-template-columns: 1fr;
+    padding-top: 0.5rem;
+  }
+
+  .wix-nav {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.85rem;
+    padding-top: 0.95rem;
+    padding-bottom: 0.95rem;
+    padding-inline: 1rem;
+  }
+
+  .wix-brand {
+    min-width: 0;
+  }
+
+  .logo-container {
+    min-width: 0;
+  }
+
+  .wix-brand .brand-name {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .wix-nav-right {
+    display: none;
+  }
+
+  .wix-mobile-menu-toggle {
+    width: 46px;
+    height: 46px;
+    display: inline-grid;
+    place-items: center;
+    border: 1px solid var(--wix-line);
+    border-radius: 999px;
+    background: white;
+    color: var(--wix-text);
+    box-shadow: 0 12px 24px rgba(52, 42, 36, 0.08);
+    cursor: pointer;
+  }
+
+  .wix-mobile-menu-toggle .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .wix-mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1400;
+    background: rgba(34, 28, 25, 0.42);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .wix-mobile-menu-overlay.show {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .wix-mobile-menu-panel {
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: grid;
+    gap: 1rem;
+    padding: 1.2rem 1rem calc(1.2rem + env(safe-area-inset-bottom));
+    border-radius: 28px 28px 0 0;
+    background: linear-gradient(180deg, rgba(255, 252, 247, 0.98), rgba(250, 243, 234, 0.98));
+    box-shadow: 0 -18px 44px rgba(54, 42, 34, 0.18);
+  }
+
+  .wix-mobile-menu-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .wix-mobile-menu-header h2 {
+    margin-top: 0.45rem;
+    color: var(--wix-text);
+    font-family: var(--font-display);
+    font-size: 2.25rem;
+    line-height: 0.95;
+  }
+
+  .wix-mobile-menu-close {
+    width: 42px;
+    height: 42px;
+    display: inline-grid;
+    place-items: center;
+    border: 1px solid var(--wix-line);
+    border-radius: 999px;
+    background: white;
+    color: var(--wix-text);
+    cursor: pointer;
+    flex: 0 0 auto;
+  }
+
+  .wix-mobile-menu-links {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .wix-mobile-menu-link {
+    width: 100%;
+    display: grid;
+    gap: 0.28rem;
+    padding: 1rem;
+    border: 1px solid #e7dccf;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.78);
+    color: var(--wix-text);
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .wix-mobile-menu-link.active {
+    border-color: rgba(153, 104, 93, 0.36);
+    background: rgba(153, 104, 93, 0.08);
+  }
+
+  .wix-mobile-menu-link-title {
+    font-family: var(--font-display);
+    font-size: 1.48rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .wix-mobile-menu-link-text {
+    color: var(--wix-muted);
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  .wix-mobile-menu-cta {
+    width: 100%;
+  }
+
+  .wix-collection-toolbar,
+  .wix-collection-toolbar-exact {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .wix-collection-left,
+  .wix-collection-right {
+    width: 100%;
+  }
+
+  .wix-collection-right {
+    display: grid;
+    gap: 1rem;
+    justify-content: stretch;
+  }
+
+  .wix-clear-btn {
+    padding-bottom: 0;
+    justify-self: start;
+  }
+
+  .wix-select-group select {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .wix-catalog-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .home-hero-copy {
+    order: -1;
+    padding: 1.6rem 1.25rem 1.5rem;
+    border-left: 0;
+    border-bottom: 1px solid var(--wix-line);
+  }
+
+  .home-hero-copy h1 {
+    gap: 0.03em;
+    font-size: clamp(2.75rem, 9vw, 3.55rem);
+    line-height: 0.92;
+  }
+
+  .home-hero-copy p {
+    max-width: none;
+  }
+
+  .home-hero-cta {
+    width: 100%;
+    max-width: 220px;
+    margin-top: 1.25rem;
+  }
+
+  .home-hero-media {
+    min-height: 320px;
+    max-height: 380px;
+    aspect-ratio: auto;
+  }
+
+  .home-hero-media-monogram {
+    padding: 1.4rem;
+  }
+
+  .home-hero-media-monogram img.home-hero-monogram-image {
+    width: min(100%, 240px);
+  }
+
+  .wix-catalog-card {
+    padding-bottom: 1rem;
+    border: 1px solid rgba(231, 220, 207, 0.92);
+    border-radius: 22px;
+    background: rgba(255, 253, 250, 0.92);
+    box-shadow: 0 16px 36px rgba(62, 47, 39, 0.05);
+    overflow: hidden;
+  }
+
+  .wix-catalog-card > *:not(.wix-catalog-image) {
+    margin-inline: 1rem;
+  }
+
+  .wix-catalog-card .wix-catalog-cta,
+  .wix-catalog-card .wix-catalog-badge {
+    width: auto;
+  }
+
+  .wix-home-inquire-row {
+    padding-bottom: 0.5rem;
+  }
+
+  .site-footer {
+    padding-bottom: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .view {
+    padding-top: 88px;
+  }
+
+  .wix-brand {
+    font-size: 1.25rem;
+  }
+
+  .wix-brand img {
+    width: 38px;
+    max-width: 38px;
+  }
+
+  .wix-brand .brand-name {
+    font-size: 1rem;
+  }
+
+  .home-hero-copy {
+    padding: 1.45rem 1rem 1.35rem;
+  }
+
+  .home-hero-copy h1 {
+    font-size: clamp(2.35rem, 12vw, 2.9rem);
+  }
+
+  .home-hero-copy p {
+    max-width: none;
+    font-size: 0.96rem;
+  }
+
+  .home-hero-media {
+    min-height: 260px;
+    max-height: 320px;
+  }
+
+  .home-hero-media-monogram {
+    padding: 1rem;
+  }
+
+  .home-hero-media-monogram img.home-hero-monogram-image {
+    width: min(100%, 200px);
+  }
+
+  .wix-mobile-menu-header h2 {
+    font-size: 2rem;
+  }
+
+  .wix-catalog-title {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 860px) {
+  .scroll-reveal,
+  .scroll-reveal.is-visible,
+  .scroll-reveal.reveal-up,
+  .scroll-reveal.reveal-down,
+  .scroll-reveal.reveal-left,
+  .scroll-reveal.reveal-right,
+  .scroll-reveal img,
+  .scroll-reveal.is-visible img {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+
+  .scroll-reveal.image-reveal-card .home-image-card-media,
+  .scroll-reveal.image-reveal-card.is-visible .home-image-card-media,
+  .scroll-reveal.image-reveal-card .home-image-card-media::before,
+  .scroll-reveal.image-reveal-card .home-image-card-media::after,
+  .scroll-reveal.image-reveal-card .home-image-card-media img,
+  .scroll-reveal.image-reveal-card.is-visible .home-image-card-media img {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+
+  .scroll-reveal.image-reveal-card .home-image-card-media::before,
+  .scroll-reveal.image-reveal-card .home-image-card-media::after {
+    display: none;
   }
 }

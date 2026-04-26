@@ -278,7 +278,10 @@ export default function AdminModal({
                     >
                       {designForm.image ? (
                         <>
-                          <img src={designForm.image} className="preview-img" alt="Design preview" />
+                          <div className="img-upload-preview">
+                            <img src={designForm.image} className="preview-img" alt="Design preview" />
+                          </div>
+                          <div className="img-upload-note">Click anywhere on the preview to replace the image.</div>
                           <button
                             className="remove-image"
                             type="button"

@@ -43,7 +43,7 @@ Sneha's Boutique storefront with:
 ## Home page status
 
 - Hero is a split Wix-style layout with:
-  - left HD fabric image
+  - left monogram hero image
   - right serif headline `HANDCRAFTED ELEGANCE FOR THE MODERN SOUL.`
   - supporting copy
   - `Shop the Collection` CTA
@@ -96,6 +96,8 @@ Sneha's Boutique storefront with:
   - badge
   - updated date
 - The frontend admin flow no longer carries price/original-price form state for new edits/submits.
+- Admin image upload preview now shows the full selected image in a contained frame instead of aggressively cropping/zooming it.
+- Admin add/edit validation errors now clear as soon as the user changes a field again, so stale messages do not linger after corrections.
 
 ## Real metrics now in use
 
@@ -129,7 +131,7 @@ Sneha's Boutique storefront with:
 - Reference assets currently used live in:
   - `client/public/assets/home-references/`
 - Important current assets there include:
-  - `hero-fabric-hd.jpg`
+  - `brand-monogram.png`
   - `signature-collections-hd.png`
   - `signature-fabrics-solo-hd.png`
   - `signature-handlooms-solo-hd.png`
@@ -164,9 +166,18 @@ Sneha's Boutique storefront with:
   - `FRONTEND_URL` for the primary origin
   - `FRONTEND_URLS` for extra exact origins
   - `FRONTEND_URL_SUFFIXES` for preview-domain suffixes such as `.pages.dev`
+- Backend default allowlist now also includes the active local/dev storefront origins:
+  - `http://localhost:4182`
+  - `http://127.0.0.1:4182`
+  - `https://app.snehasboutique.online`
 - Recommended backend env when using Cloudflare Pages previews:
   - `FRONTEND_URL=https://<project>.pages.dev`
   - `FRONTEND_URL_SUFFIXES=.pages.dev`
+- Mobile UX was then simplified again after the first pass felt too busy:
+  - desktop now keeps the clean original header without leaked mobile UI
+  - phones use a lighter menu-sheet pattern instead of extra persistent mobile bars/cards
+  - above-the-fold mobile content now shows immediately instead of waiting on reveal animation
+  - mobile hero now leads with the headline and CTA first, with the image moved below for clearer first-screen comprehension
 
 ## Important files
 
@@ -176,6 +187,7 @@ Sneha's Boutique storefront with:
 - `client/src/api/designsApi.js`
 - `client/src/components/Navbar.jsx`
 - `client/src/components/HomeView.jsx`
+- `client/src/components/ScrollReveal.jsx`
 - `client/src/components/CollectionView.jsx`
 - `client/src/components/DesignModal.jsx`
 - `client/src/components/ContactView.jsx`
@@ -215,6 +227,10 @@ Sneha's Boutique storefront with:
 - `node --check server/src/index.js`
 - `node --check server/src/routes/metricsRoutes.js`
   - all passed again on April 24, 2026 after adding Cloudflare Pages GitHub Actions deploy support, split-host API base configuration, and preview-friendly CORS options
+- `npm.cmd run build --prefix client`
+  - passed again on April 24, 2026 after the mobile UX pass that added a simplified phone header, mobile quick-start cards, and a sticky bottom mobile action bar
+- `npm.cmd run build --prefix client`
+  - passed on April 26, 2026 after the admin image-upload preview fix that switched the preview to a contained full-image frame and cleared stale form errors during editing
 
 ## Reference material
 

@@ -2,7 +2,7 @@
 
 Use this as the greeting or quick-reply text in WhatsApp Business:
 
-`Namaste! Welcome to Sneha's Boutique. Thank you for messaging us. Please share the design name or screenshot, your size or measurements, required category, and delivery date. We will guide you with availability, pricing, and customization options.`
+`Hai! Welcome to Sneha's Boutique. Thank you for messaging us. Please share the design name or screenshot, your size or measurements, required category, and delivery date. We will guide you with availability, pricing, and customization options.`
 
 Suggested quick replies:
 

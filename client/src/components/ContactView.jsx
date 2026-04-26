@@ -30,7 +30,7 @@ export default function ContactView({ onTrackInquiry }) {
 
   const contactMessage = useMemo(() => {
     return [
-      "Namaste Sneha's Boutique,",
+      "Hai Sneha's Boutique,",
       form.firstName || form.lastName ? `Name: ${form.firstName} ${form.lastName}`.trim() : "",
       form.phone ? `Phone: ${form.phone}` : "",
       form.message ? `Message: ${form.message}` : "I would like help finding the right handcrafted piece for my collection."

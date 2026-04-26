@@ -5,7 +5,7 @@ import {
 import ScrollReveal from "./ScrollReveal";
 
 const HANDPICKED_REFERENCE_IMAGE = "/assets/home-references/handpicked-hd.png";
-const HERO_REFERENCE_IMAGE = "/assets/home-references/hero-fabric-hd.jpg";
+const HERO_REFERENCE_IMAGE = "/assets/home-references/brand-monogram.png";
 
 const TESTIMONIALS = [
   {
@@ -76,7 +76,7 @@ function designImage(design, fallback = "/assets/boutique-logo.jpg") {
 
 function featureInquiryMessage(name) {
   return [
-    "Namaste Sneha's Boutique,",
+    "Hai Sneha's Boutique,",
     `I am interested in "${name}" from the home page.`,
     "Please share pricing, availability, and customization options."
   ].join(" ");
@@ -115,10 +115,11 @@ export default function HomeView({
   return (
     <>
       <section className="wix-page-shell home-wix-hero">
-        <ScrollReveal className="home-hero-media" direction="left">
+        <ScrollReveal className="home-hero-media home-hero-media-monogram" direction="left">
           <img
             src={HERO_REFERENCE_IMAGE}
-            alt={heroDesign?.name || "Sneha's Boutique hero fabric"}
+            alt={heroDesign?.name || "Sneha's Boutique monogram"}
+            className="home-hero-monogram-image"
           />
         </ScrollReveal>
 

@@ -59,6 +59,13 @@ const ICONS = {
       <path d="M18 6 6 18" />
     </>
   ),
+  menu: (
+    <>
+      <path d="M4 7h16" />
+      <path d="M4 12h16" />
+      <path d="M4 17h16" />
+    </>
+  ),
   upload: (
     <>
       <path d="M12 16V4" />
