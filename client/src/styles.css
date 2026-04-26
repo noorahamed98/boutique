@@ -4939,67 +4939,15 @@ body {
   min-width: 0;
 }
 
-.feature-slider {
-  display: grid;
-  gap: 1rem;
-}
-
-.feature-slider-viewport {
-  overflow: hidden;
+.home-handpicked-gallery .auto-scroll-gallery-card {
+  width: clamp(280px, 30vw, 360px);
+  padding: 0.8rem;
   border-radius: 30px;
-  border: 1px solid rgba(231, 220, 207, 0.96);
-  background: rgba(255, 252, 247, 0.9);
-  box-shadow: 0 20px 38px rgba(63, 52, 47, 0.08);
 }
 
-.feature-slider-track {
-  display: flex;
-  transition: transform 820ms cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
-}
-
-.feature-slider-slide {
-  min-width: 100%;
-}
-
-.feature-slider-frame {
-  width: 100%;
+.home-handpicked-gallery .auto-scroll-gallery-frame {
   aspect-ratio: 4 / 5.1;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.68), transparent 34%),
-    linear-gradient(180deg, #f8f1e7 0%, #efe3d3 100%);
-}
-
-.feature-slider-image {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: contain;
-  object-position: center;
-}
-
-.feature-slider-dots {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-}
-
-.feature-slider-dot {
-  width: 10px;
-  height: 10px;
-  padding: 0;
-  border: none;
-  border-radius: 999px;
-  background: rgba(165, 111, 93, 0.24);
-  transition: transform 220ms ease, background-color 220ms ease;
-}
-
-.feature-slider-dot.is-active {
-  background: #a56f5d;
-  transform: scale(1.15);
+  border-radius: 24px;
 }
 
 .home-handpicked-copy {
@@ -7178,10 +7126,6 @@ body {
     padding: 1rem;
   }
 
-  .feature-slider-frame {
-    aspect-ratio: 4 / 4.6;
-  }
-
   .home-handpicked-copy {
     justify-items: start;
   }
@@ -7329,12 +7273,14 @@ body {
     padding: 0.85rem;
   }
 
-  .feature-slider-viewport {
+  .home-handpicked-gallery .auto-scroll-gallery-card {
+    width: min(76vw, 270px);
+    padding: 0.55rem;
     border-radius: 20px;
   }
 
-  .feature-slider-frame {
-    aspect-ratio: 4 / 4.85;
+  .home-handpicked-gallery .auto-scroll-gallery-frame {
+    border-radius: 16px;
   }
 
   .home-handpicked-copy h2 {
@@ -7348,15 +7294,6 @@ body {
 
   .home-handpicked-cta {
     width: 100%;
-  }
-
-  .feature-slider-dots {
-    gap: 0.42rem;
-  }
-
-  .feature-slider-dot {
-    width: 9px;
-    height: 9px;
   }
 
   .home-hero-copy .home-hero-headline {
