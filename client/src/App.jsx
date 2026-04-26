@@ -21,6 +21,7 @@ import Icon from "./components/Icon";
 import {
   DEFAULT_BADGES,
   PUBLIC_CATEGORIES,
+  getCategoryReferenceImage,
   STUDIO_HASH,
   sanitizeDesign,
   trackWhatsAppInquiry
@@ -98,14 +99,22 @@ export default function App() {
 
   const categoryStats = useMemo(() => {
     const counts = new Map(PUBLIC_CATEGORIES.map((category) => [category.name, 0]));
+    const previewImages = new Map();
 
-    designs.forEach((design) => {
+    [...designs]
+      .sort((a, b) => designTimestamp(b) - designTimestamp(a))
+      .forEach((design) => {
       counts.set(design.category, (counts.get(design.category) || 0) + 1);
-    });
+
+        if (design.image && !previewImages.has(design.category)) {
+          previewImages.set(design.category, design.image);
+        }
+      });
 
     return PUBLIC_CATEGORIES.map((category) => ({
       ...category,
-      count: counts.get(category.name) || 0
+      count: counts.get(category.name) || 0,
+      previewImage: previewImages.get(category.name) || getCategoryReferenceImage(category.name)
     }));
   }, [designs]);
 

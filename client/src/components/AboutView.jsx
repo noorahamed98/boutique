@@ -43,11 +43,17 @@ export default function AboutView({ heroDesign, galleryDesigns }) {
         {(previewImages.length ? previewImages : [heroDesign]).filter(Boolean).map((design, index) => (
           <ScrollReveal
             key={design?.id || index}
-            className={`wix-home-collage-tile tile-${index + 1}`}
+            className={`wix-home-collage-tile about-collage-tile tile-${index + 1}`}
             direction={index === 1 ? "up" : index === 0 ? "left" : "right"}
             delay={index * 120}
           >
-            <img src={designImage(design)} alt={design?.name || "Sneha's Boutique gallery"} />
+            <div className="about-collage-frame">
+              <img
+                src={designImage(design)}
+                alt={design?.name || "Sneha's Boutique gallery"}
+                className="about-collage-image"
+              />
+            </div>
           </ScrollReveal>
         ))}
       </section>

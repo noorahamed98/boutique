@@ -20,21 +20,6 @@ const LOGIN_FEATURES = [
   }
 ];
 
-function getCategoryIcon(categoryName) {
-  switch (categoryName) {
-    case "Fabrics":
-      return "cotton";
-    case "Handlooms":
-      return "loom";
-    case "Materials":
-      return "package";
-    case "Custom Made":
-      return "handmade";
-    default:
-      return "spark";
-  }
-}
-
 function formatDate(value) {
   if (!value) return "Not synced";
 
@@ -313,8 +298,8 @@ export default function AdminModal({
                         className={`admin-category-pill ${category.count > 0 ? "is-stocked" : ""}`.trim()}
                         key={category.name}
                       >
-                        <span className="admin-category-pill-icon">
-                          <Icon name={getCategoryIcon(category.name)} />
+                        <span className="admin-category-pill-thumb">
+                          <img src={category.previewImage} alt="" />
                         </span>
                         <div>
                           <strong>{category.name}</strong>

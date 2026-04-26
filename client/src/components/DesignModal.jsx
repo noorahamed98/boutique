@@ -28,7 +28,13 @@ export default function DesignModal({ design, onClose, onTrackInquiry }) {
         </button>
 
         <div className="wix-modal-media">
-          {design.image ? <img src={design.image} alt={design.name} className="modal-img" /> : <div className="modal-img">Design</div>}
+          {design.image ? (
+            <div className="wix-modal-media-frame">
+              <img src={design.image} alt={design.name} className="modal-image-full" />
+            </div>
+          ) : (
+            <div className="modal-img">Design</div>
+          )}
         </div>
 
         <div className="wix-modal-copy">

@@ -25,6 +25,13 @@ export const PUBLIC_CATEGORIES = [
   }
 ];
 
+export const CATEGORY_REFERENCE_IMAGES = {
+  Fabrics: "/assets/home-references/signature-fabrics-solo-hd.png",
+  Handlooms: "/assets/home-references/signature-handlooms-solo-hd.png",
+  Materials: "/assets/home-references/signature-materials-solo-hd.png",
+  "Custom Made": "/assets/home-references/signature-custom-solo-hd.png"
+};
+
 const CATEGORY_LOOKUP = new Map([
   ["fabrics", "Fabrics"],
   ["fabric", "Fabrics"],
@@ -57,6 +64,10 @@ export function normalizeCategory(value = "") {
   }
 
   return "Custom Made";
+}
+
+export function getCategoryReferenceImage(categoryName) {
+  return CATEGORY_REFERENCE_IMAGES[normalizeCategory(categoryName)] || "/assets/home-references/brand-monogram.png";
 }
 
 export function parseAmount(value) {
