@@ -4,6 +4,7 @@ server/node_modules/
 
 client/dist/
 tmp/
+.netlify/
 
 .env
 server/.env

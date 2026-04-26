@@ -19,6 +19,7 @@ const defaultFrontendOrigins = [
   "http://127.0.0.1:4182",
   "https://app.snehasboutique.online"
 ];
+const defaultFrontendOriginSuffixes = [".pages.dev", ".netlify.app"];
 
 function parseCsv(value = "") {
   return String(value)
@@ -30,7 +31,7 @@ function parseCsv(value = "") {
 const allowedOrigins = new Set(
   [...defaultFrontendOrigins, process.env.FRONTEND_URL, ...parseCsv(process.env.FRONTEND_URLS)].filter(Boolean)
 );
-const allowedOriginSuffixes = parseCsv(process.env.FRONTEND_URL_SUFFIXES);
+const allowedOriginSuffixes = [...defaultFrontendOriginSuffixes, ...parseCsv(process.env.FRONTEND_URL_SUFFIXES)];
 
 app.use(
   cors({
