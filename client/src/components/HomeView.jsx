@@ -4,6 +4,7 @@ import {
 } from "../lib/storefront";
 import ScrollReveal from "./ScrollReveal";
 import AutoScrollGallery from "./AutoScrollGallery";
+import AutoFeatureSlider from "./AutoFeatureSlider";
 
 const HERO_REFERENCE_IMAGE = "/assets/nav-logo.png";
 
@@ -199,7 +200,7 @@ export default function HomeView({
       <section className="wix-page-shell home-reference-section home-reference-section-light home-handpicked-section">
         <ScrollReveal className="home-handpicked-layout" direction="up">
           <div className="home-handpicked-gallery">
-            <AutoScrollGallery designs={handpickedDesigns} ariaLabel="Handpicked boutique designs" />
+            <AutoFeatureSlider designs={handpickedDesigns} ariaLabel="Handpicked boutique designs" />
           </div>
 
           <div className="home-handpicked-copy">
