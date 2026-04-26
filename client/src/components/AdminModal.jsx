@@ -154,7 +154,7 @@ export default function AdminModal({
 
   return (
     <div className="admin-bg show" onClick={(event) => event.target === event.currentTarget && onClose()}>
-      <div className="admin-box admin-studio-shell">
+      <div className={`admin-box admin-studio-shell ${isAuthenticated ? "is-authenticated" : "is-login"}`}>
         <div className="admin-hd">
           <div className="admin-hd-copy">
             <span className="admin-kicker">SNEHA&apos;S BOUTIQUE STUDIO</span>

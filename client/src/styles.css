@@ -5657,12 +5657,13 @@ body {
 
 .admin-bg {
   padding: 0.5rem;
+  overflow: hidden;
 }
 
 .admin-box {
-  width: min(1260px, calc(100vw - 1rem));
-  max-width: 1260px;
-  height: calc(100dvh - 1rem);
+  width: min(1280px, calc(100vw - 1rem));
+  max-width: 1280px;
+  height: min(760px, calc(100dvh - 1rem));
 }
 
 .admin-auth-card,
@@ -5695,65 +5696,78 @@ body {
 }
 
 @media (min-width: 821px) {
-  .admin-bg {
-    padding: 0;
+  .admin-bg.show {
+    align-items: center;
   }
 
-  .admin-bg.show {
-    align-items: stretch;
+  .admin-box.is-authenticated {
+    width: min(1280px, calc(100vw - 0.8rem));
+    height: min(760px, calc(100dvh - 0.8rem));
+  }
+
+  .admin-box.is-login {
+    width: min(1180px, calc(100vw - 2rem));
+    height: min(720px, calc(100dvh - 2rem));
   }
 
   .admin-box {
-    width: 100vw;
-    max-width: none;
-    height: 100dvh;
-    border-radius: 0;
-    border-width: 0;
+    border-radius: 18px;
   }
 
   .admin-hd {
-    padding: 1rem 1.25rem 0.9rem;
+    padding: 0.9rem 1.2rem 0.8rem;
+  }
+
+  .admin-hd-sub {
+    max-width: 54ch;
+    font-size: 0.88rem;
+    line-height: 1.42;
   }
 
   .admin-inner {
-    padding: 0.85rem 0.95rem 0.95rem;
-  }
-
-  .admin-auth-layout {
-    grid-template-columns: minmax(0, 1fr) minmax(380px, 0.92fr);
-    gap: 0.8rem;
+    padding: 0.8rem;
   }
 
   .admin-studio-grid {
-    grid-template-columns: minmax(260px, 300px) minmax(0, 1fr);
+    grid-template-columns: minmax(250px, 286px) minmax(0, 1fr);
     gap: 0.8rem;
   }
 
-  .admin-overview-card,
   .admin-sidebar-card,
+  .admin-overview-card,
   .admin-workspace,
   .admin-auth-aside,
   .admin-auth-card,
   .admin-form-card {
     border-radius: 20px;
   }
+
+  .admin-sidebar-card,
+  .admin-studio-shell.is-authenticated .admin-overview-card p,
+  .admin-studio-shell.is-authenticated .admin-panel-heading p {
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-height: 820px) {
   .admin-bg {
-    padding: 0.75rem;
+    padding: 0.5rem;
   }
 
-  .admin-box {
-    height: calc(100dvh - 0.8rem);
+  .admin-box.is-authenticated {
+    height: min(744px, calc(100dvh - 1rem));
+  }
+
+  .admin-box.is-login {
+    height: min(700px, calc(100dvh - 1rem));
   }
 
   .admin-hd {
-    padding: 1rem 1.15rem 0.9rem;
+    padding: 0.82rem 1rem 0.72rem;
   }
 
   .admin-inner {
-    padding: 0.9rem;
+    padding: 0.72rem;
   }
 
   .admin-auth-aside,
@@ -5780,6 +5794,30 @@ body {
   .admin-auth-feature-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0.55rem;
+  }
+
+  .admin-studio-shell.is-authenticated .admin-sidebar-card {
+    display: none;
+  }
+
+  .admin-studio-shell.is-authenticated .admin-overview-card p,
+  .admin-studio-shell.is-authenticated .admin-panel-heading p {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .admin-studio-shell.is-authenticated .admin-hd-sub {
+    display: -webkit-box;
+    max-width: 50ch;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .admin-studio-shell.is-authenticated .admin-stats {
+    gap: 0.6rem;
   }
 
   .admin-auth-feature {
