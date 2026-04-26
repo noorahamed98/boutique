@@ -105,6 +105,7 @@ Sneha's Boutique storefront with:
   - more editorial metric cards and a clearer add/manage workspace
   - upgraded manage cards with badge/category chips and labeled action buttons
 - Admin design submit now reads the live form field values at submit time in addition to React state, which fixes the false `Design name is required.` error when the visible input and submitted state drift out of sync.
+- Admin submit is now hardened a second time: the studio form passes an explicit snapshot of the live input refs into `handleDesignSubmit()`, so mixed HMR/dev-server state cannot submit an empty `designName` while the field still looks filled in.
 
 ## Real metrics now in use
 

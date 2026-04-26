@@ -426,21 +426,33 @@ export default function App() {
     showToast(isSaved ? "Removed from wishlist." : "Saved to wishlist.", isSaved ? "info" : "success");
   }
 
-  async function handleDesignSubmit(event) {
-    event.preventDefault();
+  async function handleDesignSubmit(submission = null) {
+    const submittedForm =
+      submission && typeof submission === "object" && "currentTarget" in submission
+        ? new FormData(submission.currentTarget)
+        : null;
+
+    if (submission && typeof submission.preventDefault === "function") {
+      submission.preventDefault();
+    }
 
     if (!adminToken || !isAdminAuthenticated) {
       setFormError("Please log in as admin to make changes.");
       return;
     }
 
-    const submittedForm = new FormData(event.currentTarget);
+    const submittedValues =
+      submission && typeof submission === "object" && !("currentTarget" in submission) ? submission : {};
     const payload = {
-      name: String(submittedForm.get("designName") || designForm.name || "").trim(),
-      category: String(submittedForm.get("designCategory") || designForm.category || "").trim(),
-      description: String(submittedForm.get("designDescription") || designForm.description || "").trim(),
+      name: String(submittedValues.name ?? submittedForm?.get("designName") ?? designForm.name ?? "").trim(),
+      category: String(
+        submittedValues.category ?? submittedForm?.get("designCategory") ?? designForm.category ?? ""
+      ).trim(),
+      description: String(
+        submittedValues.description ?? submittedForm?.get("designDescription") ?? designForm.description ?? ""
+      ).trim(),
       image: designForm.image || null,
-      badge: String(submittedForm.get("designBadge") || designForm.badge || "").trim() || null
+      badge: String(submittedValues.badge ?? submittedForm?.get("designBadge") ?? designForm.badge ?? "").trim() || null
     };
 
     if (!payload.name || !payload.category || !payload.description) {

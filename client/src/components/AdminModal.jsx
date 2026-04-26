@@ -76,6 +76,10 @@ export default function AdminModal({
   onDeleteDesign
 }) {
   const fileInputRef = useRef(null);
+  const designNameInputRef = useRef(null);
+  const designCategoryInputRef = useRef(null);
+  const designDescriptionInputRef = useRef(null);
+  const designBadgeInputRef = useRef(null);
   const [manageQuery, setManageQuery] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
@@ -136,6 +140,16 @@ export default function AdminModal({
     event.preventDefault();
     const [file] = event.dataTransfer.files || [];
     onImageSelected(file || null);
+  }
+
+  function handleDesignFormSubmit(event) {
+    event.preventDefault();
+    onDesignSubmit({
+      name: designNameInputRef.current?.value ?? designForm.name,
+      category: designCategoryInputRef.current?.value ?? designForm.category,
+      description: designDescriptionInputRef.current?.value ?? designForm.description,
+      badge: designBadgeInputRef.current?.value ?? designForm.badge
+    });
   }
 
   return (
@@ -384,7 +398,13 @@ export default function AdminModal({
                         </div>
                       </div>
 
-                      <form id="designForm" className="admin-form-shell" autoComplete="off" onSubmit={onDesignSubmit}>
+                      <form
+                        key={editingId || "new-design"}
+                        id="designForm"
+                        className="admin-form-shell"
+                        autoComplete="off"
+                        onSubmit={handleDesignFormSubmit}
+                      >
                         <div className="admin-form-layout">
                           <section className="admin-form-card">
                             <div className="admin-card-heading">
@@ -403,6 +423,7 @@ export default function AdminModal({
                                   Design Name *
                                 </label>
                                 <input
+                                  ref={designNameInputRef}
                                   id="designName"
                                   name="designName"
                                   type="text"
@@ -420,6 +441,7 @@ export default function AdminModal({
                                   Category *
                                 </label>
                                 <select
+                                  ref={designCategoryInputRef}
                                   id="designCategory"
                                   name="designCategory"
                                   className="form-select"
@@ -440,6 +462,7 @@ export default function AdminModal({
                                 Description *
                               </label>
                               <textarea
+                                ref={designDescriptionInputRef}
                                 id="designDesc"
                                 name="designDescription"
                                 className="form-textarea"
@@ -469,6 +492,7 @@ export default function AdminModal({
                                 Badge
                               </label>
                               <select
+                                ref={designBadgeInputRef}
                                 id="designBadge"
                                 name="designBadge"
                                 className="form-select"
