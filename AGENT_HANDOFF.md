@@ -98,6 +98,13 @@ Sneha's Boutique storefront with:
 - The frontend admin flow no longer carries price/original-price form state for new edits/submits.
 - Admin image upload preview now shows the full selected image in a contained frame instead of aggressively cropping/zooming it.
 - Admin add/edit validation errors now clear as soon as the user changes a field again, so stale messages do not linger after corrections.
+- Admin UI was redesigned into a more distinct studio-console layout:
+  - richer branded header
+  - split login experience with a private-studio info panel
+  - left-side authenticated overview rail with category coverage and recent updates
+  - more editorial metric cards and a clearer add/manage workspace
+  - upgraded manage cards with badge/category chips and labeled action buttons
+- Admin design submit now reads the live form field values at submit time in addition to React state, which fixes the false `Design name is required.` error when the visible input and submitted state drift out of sync.
 
 ## Real metrics now in use
 
@@ -231,6 +238,10 @@ Sneha's Boutique storefront with:
   - passed again on April 24, 2026 after the mobile UX pass that added a simplified phone header, mobile quick-start cards, and a sticky bottom mobile action bar
 - `npm.cmd run build --prefix client`
   - passed on April 26, 2026 after the admin image-upload preview fix that switched the preview to a contained full-image frame and cleared stale form errors during editing
+- `npm.cmd run build --prefix client`
+  - passed on April 26, 2026 after the admin studio redesign that rebuilt the modal into a richer two-column console with new login, overview, add-design, and manage-collection layouts
+- `npm.cmd run build --prefix client`
+  - passed on April 26, 2026 after the admin submit-sync fix that reads the actual form values on submit to prevent false missing-name validation errors
 
 ## Reference material
 

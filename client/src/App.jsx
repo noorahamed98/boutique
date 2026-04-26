@@ -434,18 +434,27 @@ export default function App() {
       return;
     }
 
+    const submittedForm = new FormData(event.currentTarget);
     const payload = {
-      name: designForm.name.trim(),
-      category: designForm.category,
-      description: designForm.description.trim(),
+      name: String(submittedForm.get("designName") || designForm.name || "").trim(),
+      category: String(submittedForm.get("designCategory") || designForm.category || "").trim(),
+      description: String(submittedForm.get("designDescription") || designForm.description || "").trim(),
       image: designForm.image || null,
-      badge: designForm.badge || null
+      badge: String(submittedForm.get("designBadge") || designForm.badge || "").trim() || null
     };
 
     if (!payload.name || !payload.category || !payload.description) {
       setFormError("Please fill all required fields.");
       return;
     }
+
+    setDesignForm((previous) => ({
+      ...previous,
+      name: payload.name,
+      category: payload.category,
+      description: payload.description,
+      badge: payload.badge || DEFAULT_BADGES[0]
+    }));
 
     setFormBusy(true);
     setFormError("");
