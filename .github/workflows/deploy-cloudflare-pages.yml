@@ -20,7 +20,8 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v6
 
-      - name: Validate Cloudflare configuration
+      - name: Check Cloudflare configuration
+        id: cloudflare-config
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -28,30 +29,47 @@ jobs:
           VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
         run: |
           missing=0
+          missing_items=""
 
           if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
             echo "Missing GitHub secret: CLOUDFLARE_API_TOKEN"
             missing=1
+            missing_items="${missing_items}- CLOUDFLARE_API_TOKEN"$'\n'
           fi
 
           if [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
             echo "Missing GitHub secret: CLOUDFLARE_ACCOUNT_ID"
             missing=1
+            missing_items="${missing_items}- CLOUDFLARE_ACCOUNT_ID"$'\n'
           fi
 
           if [ -z "$CLOUDFLARE_PAGES_PROJECT_NAME" ]; then
             echo "Missing GitHub variable: CLOUDFLARE_PAGES_PROJECT_NAME"
             missing=1
+            missing_items="${missing_items}- CLOUDFLARE_PAGES_PROJECT_NAME"$'\n'
           fi
 
           if [ -z "$VITE_API_BASE_URL" ]; then
             echo "Missing GitHub variable: VITE_API_BASE_URL"
-            echo "Set it to your deployed API base URL, for example https://api.example.com/api"
+            echo "Frontend build will continue with the default relative /api base."
             missing=1
+            missing_items="${missing_items}- VITE_API_BASE_URL"$'\n'
           fi
 
           if [ "$missing" -ne 0 ]; then
-            exit 1
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            {
+              echo "### Cloudflare Pages deploy skipped"
+              echo
+              echo "The frontend build still ran, but deployment was skipped because these repository settings are missing:"
+              printf "%s" "$missing_items"
+              echo
+              echo "Add them in GitHub repository settings, then rerun this workflow:"
+              echo "- Secrets: \`CLOUDFLARE_API_TOKEN\`, \`CLOUDFLARE_ACCOUNT_ID\`"
+              echo "- Variables: \`CLOUDFLARE_PAGES_PROJECT_NAME\`, \`VITE_API_BASE_URL\`"
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Set up Node.js
@@ -72,6 +90,7 @@ jobs:
         run: npm run build
 
       - name: Deploy to Cloudflare Pages
+        if: steps.cloudflare-config.outputs.ready == 'true'
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}

@@ -169,6 +169,7 @@ Sneha's Boutique storefront with:
 - The current Cloudflare path is:
   - `client/` deploys to Cloudflare Pages
   - `server/` stays on Node + PostgreSQL hosting unless a separate backend migration happens later
+- If Cloudflare repo secrets/variables are missing, the workflow now still builds the frontend and skips only the deploy step with a GitHub Actions summary note instead of failing the whole workflow immediately.
 - Backend CORS now supports:
   - `FRONTEND_URL` for the primary origin
   - `FRONTEND_URLS` for extra exact origins

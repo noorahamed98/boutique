@@ -135,6 +135,8 @@ The current codebase is still a split deployment when using Cloudflare:
 
 This repo now includes `.github/workflows/deploy-cloudflare-pages.yml` so every GitHub push builds the frontend and deploys it to Cloudflare Pages automatically.
 
+If those Cloudflare repository secrets or variables are missing, the workflow now still builds the frontend but skips the Cloudflare deploy step and writes the missing settings into the GitHub Actions step summary.
+
 1. Create a Cloudflare Pages project once in the Cloudflare dashboard.
 2. In GitHub repository settings, add these secrets:
    - `CLOUDFLARE_API_TOKEN`
