@@ -126,6 +126,38 @@ Render will:
 
 After the first deploy, open the generated Render URL and use your configured admin credentials to sign in.
 
+## Deploy On Railway
+
+This repo also supports a single-service Railway deployment with one Railway PostgreSQL database.
+
+The root `railway.json` tells Railway to:
+
+- install both `server/` and `client/` dependencies
+- build the Vite frontend
+- start the Express server
+- health check `GET /api/health`
+
+Recommended Railway setup:
+
+1. Create a new Railway project.
+2. Add a PostgreSQL service in the same project.
+3. Add this GitHub repo as a service from the repository root.
+4. Set these service variables:
+   - `ADMIN_USERNAME`
+   - `ADMIN_PASSWORD`
+   - `JWT_SECRET`
+5. Keep Railway's injected `DATABASE_URL` attached to the web service.
+
+Optional variables:
+
+- `FRONTEND_URL`
+- `FRONTEND_URLS`
+- `FRONTEND_URL_SUFFIXES`
+
+For a single Railway web service serving both the frontend and `/api` from the same domain, those frontend CORS variables are usually not required.
+
+Once deployed, Railway should build the frontend into `client/dist`, and the Express app will serve the storefront and API from the same public Railway domain.
+
 ## Deploy Frontend On Cloudflare Pages
 
 The current codebase is still a split deployment when using Cloudflare:

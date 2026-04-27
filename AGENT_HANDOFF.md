@@ -176,6 +176,11 @@ Sneha's Boutique storefront with:
 ## Deployment / CI notes
 
 - Frontend now supports `VITE_API_BASE_URL` for split hosting, while still defaulting to relative `/api` for the combined Express-served setup.
+- Railway support was added with a root `railway.json`:
+  - build command: `npm run install:all && npm run build`
+  - start command: `npm start`
+  - health check: `/api/health`
+  - intended model: single Railway web service + Railway PostgreSQL
 - Cloudflare Pages GitHub Actions workflow now lives at:
   - `.github/workflows/deploy-cloudflare-pages.yml`
 - The current Cloudflare path is:
