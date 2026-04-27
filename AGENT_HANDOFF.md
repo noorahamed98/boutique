@@ -126,7 +126,7 @@ Sneha's Boutique storefront with:
   - image count derived from designs with images
   - WhatsApp inquiry count from `site_metrics`
 - There is still no true order-management backend yet.
-- `Order requests` currently means tracked WhatsApp inquiries, which is the closest real user-action metric available in the current stack.
+- The UI now labels that metric truthfully as `WhatsApp inquiries` instead of `Order requests`, because inquiry clicks are not the same as confirmed orders.
 
 ## Size chart status
 

@@ -14,7 +14,7 @@ export default function SiteFooter({ designCount, imageCount, whatsappInquiryCou
         </div>
         <div>
           <strong>{whatsappInquiryCount}</strong>
-          <span>ORDER REQUESTS</span>
+          <span>WHATSAPP INQUIRIES</span>
         </div>
       </section>
 

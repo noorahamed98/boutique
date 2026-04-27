@@ -128,9 +128,9 @@ export default function AdminModal({
     },
     {
       icon: "message",
-      label: "Order requests",
+      label: "WhatsApp inquiries",
       value: whatsappInquiryCount,
-      note: "Tracked WhatsApp inquiries"
+      note: "Customer inquiry clicks tracked"
     }
   ];
 
