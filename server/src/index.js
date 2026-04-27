@@ -17,6 +17,7 @@ const defaultFrontendOrigins = [
   "http://localhost:5173",
   "http://localhost:4182",
   "http://127.0.0.1:4182",
+  "https://snehasboutique.online",
   "https://app.snehasboutique.online"
 ];
 
@@ -70,13 +71,20 @@ app.use("/api/designs", designRoutes);
 app.use("/api/metrics", metricsRoutes);
 
 if (hasClientBuild) {
-  app.use(express.static(clientDistPath));
+  app.use(
+    express.static(clientDistPath, {
+      index: false,
+      maxAge: "4h",
+      immutable: true
+    })
+  );
 
   app.get("*", (req, res, next) => {
     if (req.path.startsWith("/api")) {
       return next();
     }
 
+    res.set("Cache-Control", "no-store, no-cache, must-revalidate");
     return res.sendFile(path.join(clientDistPath, "index.html"));
   });
 }

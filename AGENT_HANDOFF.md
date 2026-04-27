@@ -181,6 +181,7 @@ Sneha's Boutique storefront with:
   - start command: `npm start`
   - health check: `/api/health`
   - intended model: single Railway web service + Railway PostgreSQL
+- The Express server now serves hashed frontend assets with cacheable static headers but forces `index.html` to `Cache-Control: no-store, no-cache, must-revalidate` so domain switches and fresh deploys do not leave users on a stale blank app shell.
 - Cloudflare Pages GitHub Actions workflow now lives at:
   - `.github/workflows/deploy-cloudflare-pages.yml`
 - The current Cloudflare path is:
