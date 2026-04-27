@@ -198,6 +198,7 @@ Sneha's Boutique storefront with:
   - phones use a lighter menu-sheet pattern instead of extra persistent mobile bars/cards
   - above-the-fold mobile content now shows immediately instead of waiting on reveal animation
   - mobile hero now leads with the headline and CTA first, with the image moved below for clearer first-screen comprehension
+- The `Since 2014` mention was removed from both the Home `Our Story` panel and the About page story copy at the user's request.
 
 ## Important files
 

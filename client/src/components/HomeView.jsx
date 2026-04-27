@@ -245,7 +245,7 @@ export default function HomeView({
         <ScrollReveal className="wix-story-panel-inner" direction="up">
           <h2>Our Story</h2>
           <p>
-            At Sneha's Boutique, we believe that true elegance lies in the details. Since 2014, we have
+            At Sneha's Boutique, we believe that true elegance lies in the details. We have
             been dedicated to sourcing and crafting pure cotton fabrics that breathe with life. Our journey
             is one of artisanal dedication, where every handloom tells a story of heritage and every custom-made
             piece is a testament to our commitment to quality.
